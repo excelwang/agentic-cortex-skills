@@ -53,6 +53,7 @@ All skills follow the [Agent Skills Specification](https://agentskills.io).
 │   ├── code-implementation/  # Executive Skill
 │   ├── code-review/          # Judiciary Skill
 │   └── system-diagnosis/     # Diagnostician Skill
+├── rules/                    # Always-on Global Rules
 ├── tickets/                  # Work Orders (L3 Tasks)
 │   ├── backlog/              # Pending tasks
 │   ├── active/               # In-progress tasks
