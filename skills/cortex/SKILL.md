@@ -24,26 +24,32 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
 ### Trigger: "Bye Cortex"
 - **State**: ANY -> S-1 (Dormant)
 - **Action**: 
-    1. Save current context to `.agent/workstream/ticket.md`.
+    1. Save current context to `.agent/workstreams/{branch_name}/ticket.md`.
     2. Clear local variables.
     3. Respond: "Cortex Offline. Bye!" and stop processing as an Agent.
 
 ## 0. Context Hydration (Startup)
 
 **Trigger**: When Cortex starts (State S0) via "Hi Cortex".
-**Action**: Automatically activate the appropriate Persona based on Git context.
+**Action**: Perform mandatory Self-Reflection before any auto-activation.
 
-1.  **Branch Detection**:
+1.  **Pre-Flight Check (Self-Reflection - CRITICAL)**:
+    - **Step A**: Read `specs/*` docs.
+    - **Step B**: Check for recent merges (`git log --merges --since="24 hours ago" --oneline`).
+    - **Step C**: If recent merges exist, analyze for **Spec Drift**.
+    - **Verdict**: If Drift is detected or Specs are outdated, MUST **Auto-Activate**: `architectural-design` (Transition T1) regardless of branch name.
+    - **Banner**: "I noticed recent merges/spec drift. Switching to Architect to update laws first."
+
+2.  **Branch Detection (Fallback Strategy)**:
+    - *Only execute if Step 1 (Reflection) does not trigger an override.*
     - `branch_name` = `git branch --show-current`.
     - If `branch_name` in [`master`, `main`]:
          - **Auto-Activate**: `architectural-design` (Transition T1).
-         - **Reason**: Main branches are for specs and high-level design.
     - Else (Dev Branch):
-         - **Step A**: Read `.agent/workstream/ticket.md`.
+         - **Step A**: Read `.agent/workstreams/{branch_name}/ticket.md`.
          - **Step B**: Parse `Global Status`.
              - If `Reviewing`: **Auto-Activate**: `code-review` (Transition T3).
              - If `Coding` | `Fixing` | `ticket.md` missing: **Auto-Activate**: `code-implementation` (Transition T2).
-         - **Step C**: If system is broken or tests fail, User can manually override or system triggers `system-diagnosis` (Transition T5).
 
 2.  **User Acknowledge**:
     - "Branch detected: {branch_name}."

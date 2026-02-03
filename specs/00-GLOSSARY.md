@@ -16,8 +16,8 @@
 - **Spec (Specification)**: A "Law". An immutable description of *what* to do. 
 - **Ticket**: A "Work Order". A mutable plan of *how* to implement the Spec.
 - **Review Report**: A "Verdict".
-- **Workstream**: A dedicated "memory block" (`.agent/workstream/`) bound to the Git Branch.
-- **Context Hydration**: The process of "loading" a Workstream's context (`current_ticket.md`) into the Agent's active window.
+- **Workstream**: A dedicated "runtime instance" of a Ticket. It is physically hosted in `.agent/workstreams/{branch_name}/` and contains the dynamic state (checkpoints, sub-tasks) of the work. bound to the Git Branch.
+- **Context Hydration**: The process of "loading" a Workstream's local state (`ticket.md`) into the Agent's active memory.
 
 ### 3. Personas (Modes)
 - **Legislator (Mode)**: Adopting `architectural-design`. Focus: Requirements & Specs.

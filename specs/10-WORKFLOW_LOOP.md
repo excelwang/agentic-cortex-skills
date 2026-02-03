@@ -29,7 +29,7 @@ The workflow consists of a single Agent transitioning between different **Person
 
 ### T-Exit: ANY -> DORMANT (Shutdown)
 - **Trigger**: "Bye Cortex"
-- **Action**: Persist state, clear context, and stop.
+- **Action**: Persist state to `.agent/workstreams/{branch_name}/ticket.md`, clear context, and stop.
 
 ### T-Reflect: IDLE -> DESIGNING (Self-Correction)
 - **Trigger**: Cortex Startup (Self-Reflection) detects Spec Drift.
@@ -67,22 +67,22 @@ The workflow consists of a single Agent transitioning between different **Person
     - The User's role is passive: Copy/Paste prompts if the Agent cannot auto-loop, but the Agent should treat itself as an autonomous loop where possible.
 2.  **State Persistence (Git-Native)**:
     - **Workstream ID**: Current Git Branch name.
-    - **Context Storage**: Local `.agent/workstream/tickets/`.
-    - **Lifecycle**: Temporary context is deleted before merging to `master`.
-    - **Shared Registry (Tickets)**: The `tickets/` directory on the `master` branch acts as the **Atomic Lock** for parallel development.
+    - **Context Storage**: Local `.agent/workstreams/{branch_name}/`.
+    - **Lifecycle**: Temporary context is kept in the branch-specific folder; deleted before merging to `master`.
+    - **Shared Registry (Tickets)**: The `tickets/` directory on the **`tracking`** branch acts as the **Atomic Lock** for parallel development. This prevents direct commits to `master` for task management.
 
 3.  **Atomic Ticket Locking Protocol**:
     - **Claiming (Lock)**:
-        1. Switch to `master` branch.
-        2. `git pull origin master`.
+        1. Switch to `tracking` branch (or pull latest).
+        2. `git pull origin tracking`.
         3. Move ticket from `tickets/backlog/` to `tickets/active/`.
-        4. `git commit -m "feat(ticket): claim TICKET_ID"` and `git push origin master`.
+        4. `git commit -m "feat(ticket): claim TICKET_ID"` and `git push origin tracking`.
         5. Switch back to feature branch to start work.
     - **Completion (Release)**:
-        1. Switch to `master` branch.
-        2. `git pull origin master`.
+        1. Switch to `tracking` branch.
+        2. `git pull origin tracking`.
         3. Move ticket from `tickets/active/` to `tickets/done/`.
-        4. `git commit -m "feat(ticket): complete TICKET_ID"` and `git push origin master`.
+        4. `git commit -m "feat(ticket): complete TICKET_ID"` and `git push origin tracking`.
 83: 
 84: 4.  **Commit Protocol (Semantic)**:
     - **Format**: `type(scope): subject` + `Body`.

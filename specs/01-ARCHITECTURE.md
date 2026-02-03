@@ -13,9 +13,9 @@ Instead of spawning multiple distinct agents, it allows one capability-rich agen
 While the system uses a Single Agent *conceptually* at any given moment, it supports **concurrent workstreams** for multiple instantiated Agents (e.g., in a team or parallel sessions).
 
 - **Processor (CPU)**: The Agent instance.
-- **Memory (RAM)**: The specific Workstream Directory (`.agent/workstream/`, fixed relative path).
-- **Concurrency**: Achieved by switching Git branches. Each branch carries its own memory.
-- **Global Awareness (Cortex)**: Cortex simply checks the current branch name.
+- **Memory (RAM)**: The specific Workstream Directory (`.agent/workstreams/{branch_name}/`).
+- **Concurrency**: Achieved by switching Git branches. Each branch carries its own isolated memory.
+- **Persistence**: While the directory is git-ignored, its presence under a branch-named subfolder prevents context leakage during branch switching.
 
 ## 2. Component Diagram
 
@@ -29,6 +29,11 @@ graph TD
         Cortex -->|Switch Hat| Jud[Judiciary Persona]
         
         Cortex -.->|Sleep| Dormant[S-1: Dormant]
+    end
+
+    subgraph "Workspace (Disk)"
+        Specs[(specs/)]
+        Wks[(".agent/workstreams/{branch}/")]
     end
 
     Leg -->|Use Skill| Skill1[architectural-design]
