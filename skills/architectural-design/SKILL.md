@@ -16,6 +16,16 @@ description: 负责需求分析与技术方案设计，输出标准化的技术�
 
 ## 2. 执行流程 (Workflow)
 
+### Phase 0: Discovery (Reverse Engineering)
+> **Trigger**: 当项目中已有代码但缺失 `specs/` 目录时。
+1. **Context Scan**: 阅读现有代码结构 (`ls -R`, `view_file` Core Classes)。
+2. **Drafting (Reverse)**:
+   - 先生成 `01-ARCHITECTURE.md` (描述现有架构)。
+   - 再生成 `10-DOMAIN_XXX.md` (描述核心逻辑)。
+3. **Glossary Extraction**:
+   - 最后总结 `00-GLOSSARY.md`。
+   - **Rule**: 此文件一旦生成，即具有**最高效力 (Supreme Authority)**。即使它是后生成的，现有代码中任何不一致的命名都被视为 Legacy Debt，需在后续重构中修正。
+
 ### Phase 1: Discuss (探讨)
 - 询问用户："这一变更的核心目标是什么？"
 - **Default Principle**: 默认 **不考虑** 后向兼容性 (No Backward Compatibility)，除非用户显式要求 "Must be compatible with version X".
@@ -89,8 +99,6 @@ description: 负责需求分析与技术方案设计，输出标准化的技术�
     - **Source**: 由 `code-implementation` (Dev) 自主编写，辅助内部逻辑验证。
     - **Path**: `tests/unit/{module}/`
     - **Rule**: 开发者拥有完全控制权。
-
-## 5. 任务文档模板 (Ticket Template)
 
 ## 5. 任务文档模板 (Task Template)
 > **Reference**: 详细模板请见 `references/TICKET_TEMPLATE.md`。请在创建新 Ticket 时读取该文件。

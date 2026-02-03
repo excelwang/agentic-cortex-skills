@@ -39,7 +39,7 @@ description: 统一的代码评审专家，支持新功能审查、重构对齐�
    3. `git checkout <refactor-branch>` -> 评审新的业务代码。
 3. **Artifact**: 生成一份 **中文 Markdown** 报告（格式详情见下方 Section 3）。
 
-### Mode C: Test Code Review (测试审查)
+## 3. Mode C: Test Code Review (测试审查)
 1. **Focus**: 测试有效性和纯净度。
 2. **Checklist**:
    - **Pollution**: 测试代码是否为了方便测试而污染了业务逻辑？（严查额外的方法或属性）
@@ -48,8 +48,8 @@ description: 统一的代码评审专家，支持新功能审查、重构对齐�
    - **Test Parity (Regression)**: 对比 Master 分支，确保没有意外删除原有的有效测试用例（Test Case Regression）。
    - **Determinism**: 严禁使用 hardcoded `sleep()` 或盲目等待。必须建议使用 **带循环检测条件的等待** (conditional waiting with loop detection, e.g., `wait_for_condition(lambda: check(), timeout=5)`)。
 
-4. **Contract Test Integrity**:
-   - 检查 `it/specs/` 下的契约测试是否被修改？
+### 3.2 Contract Test Integrity
+- 检查 `tests/contracts/` 下的契约测试是否被修改？
    - **Verdict**:
      - 允许：仅填充 `pass` -> `assert ...`。
      - **REJECT**: 如果修改了 Docstring 或弱化了断言条件。

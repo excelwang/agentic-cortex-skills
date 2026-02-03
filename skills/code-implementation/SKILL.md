@@ -138,19 +138,6 @@ graph TD
 3. 流程 **结束时**。
 
 **File Template**:
-```markdown
-# Current Ticket: [Ticket Description]
-> Last Update: 202X-XX-XX HH:MM
-> Global Status: Coding | Reviewing | Fixing
+**File Template**:
+> **Reference**: 详细模板请见 `references/CURRENT_TICKET_TEMPLATE.md`。请在创建 Workstream 时读取该文件。
 
-## Current Focus
-- Branch: refactor/xxx
-- Base Commit: [Commit Hash] (Critical for Review Diff)
-- Spec: specs/yyy.md
-
-## Latest Checkpoint
-- [x] Spec Created
-- [ ] Coding (Sub-ticket: A, B Done)
-- [ ] Test Verification (Pending)
-- [ ] Review Status (Last: FAIL - 3 issues remaining)
-```

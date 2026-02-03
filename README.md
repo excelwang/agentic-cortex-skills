@@ -41,6 +41,13 @@ All skills follow the [Agent Skills Specification](https://agentskills.io).
 | `code-review` | Code Review | The Judge | Review Reports |
 | `system-diagnosis` | Reliability Eng. | The Detective | RCA Reports, Repro Scripts |
 
+## 📐 Specifications (The "Constitution")
+
+The behavior of this system is governed by the specifications in `specs/`:
+- [00-GLOSSARY.md](specs/00-GLOSSARY.md): The Ubiquitous Language.
+- [01-ARCHITECTURE.md](specs/01-ARCHITECTURE.md): The Separation of Powers.
+- [10-WORKFLOW_LOOP.md](specs/10-WORKFLOW_LOOP.md): The Automative State Machine.
+
 ---
 
 ## 📁 Library Structure
@@ -72,14 +79,18 @@ Your project structure should then look like:
 ```text
 .agent/
 ├── skills/ (Submodule: agent-cortex)
-│   ├── architectural-design/
-│   ├── code-implementation/
-│   └── ...
+│   ├── skills/
+│   │   ├── architectural-design/
+│   │   ├── code-implementation/
+│   │   └── ...
 ├── rules/   (Project specific)
 └── tickets/ (Project specific)
 ```
 
 ---
+
+## 🤝 Contributing
+Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to add or modify skills.
 
 ## ⚖️ License
 MIT
