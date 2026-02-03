@@ -70,33 +70,11 @@ description: 统一的代码评审专家，支持新功能审查、重构对齐�
         3. **Escalate**: 指示 `code-implementation` 呼叫 `architectural-design` 修复 L2 Spec。
 
 ## 5. Feedback Format (Standardized Artifact)
-...
-必须在报告最前方展示：
-| Impacted Domain | Selected Test Suite | Rationale |
-| :--- | :--- | :--- |
-| Consistency | `it/consistency/` | Modified sync logic |
-| **Contract** | `it/specs/ticket_001.py` | **Must Pass** |
 
-无论使用哪种模式，最终输出必须包含一个 **Review Artifact (Markdown Report)**...
-### Table 1: Detailed Findings & Consistency Matrix
-用于列出所有设计、逻辑或质量问题。
-*   **Columns**: 
-    1. `ID`
-    2. `Item Description` (问题/设计点描述)
-    3. `Current Implementation` (For Refactor: Refactor Branch; For Feature: PR Code)
-    4. `Expected Implementation` (For Refactor: Master Branch; For Feature: Requirement/Spec)
-    5. `Analysis/Problem`
-    6. `Suggestion` (具体修改建议)
+无论使用哪种模式，最终输出必须遵循 **`references/REVIEW_REPORT_TEMPLATE.md`** 格式。
 
-### Table 2: Missing Features / Gaps
-用于列出缺失功能、未覆盖的场景或隐藏逻辑。
-*   **Columns**: 
-    1. `ID`
-    2. `Functionality/Scenario`
-    3. `Current Status`
-    4. `Expected Status`
-    5. `Action Item`
-
-**General Rules**:
+**核心要求**:
 - **语言**: 除非用户另有要求，默认使用 **中文** 输出报告。
-- **不要啰嗦**: 直接指出文件、行号、问题和建议代码。
+- **证据先行**: 必须引用具体的文件路径和行号。
+- **Actionable**: 所有 Findings 必须配有明确的 `Suggestion` 或 `Action Item`。
+

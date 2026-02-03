@@ -13,7 +13,7 @@ Observe the USER's request and current system state, then dispatch:
 
 ### Case A: "I have a new requirement / ambiguity"
 - **Target Persona**: `architectural-design`
-- **Goal**: Clarify requirements, code-reviewate Specs, generate Tickets.
+- **Goal**: Clarify requirements, create Specs, generate Tickets.
 - **Trigger Words**: "Design", "Plan", "Refactor", "New Feature", "Fix bug in logic".
 
 ### Case B: "I want to implement / fix / continue"

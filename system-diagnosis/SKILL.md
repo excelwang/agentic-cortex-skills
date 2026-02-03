@@ -51,9 +51,7 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 - **Wait, Don't Sleep**: 严禁 `time.sleep(5)`。必须使用 `wait_for_condition()`。
 - **Reset First**: 确保每个 Case 运行前环境是干净的。
 
-## 3. 集成测试最佳实践 (Specific to Fustor IT)
-
-## 3. 集成测试最佳实践 (Specific to Fustor IT)
+## 4. 集成测试最佳实践 (Specific to Fustor IT)
 
 - **容器交互**: 使用 `docker_manager.exec_in_container` 模拟真实 NFS 操作。
 - **一致性验证**: 再验证 Audit 或 Sync 结果前，必须等待至少一个周期 (`wait_for_audit`)。
