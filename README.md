@@ -36,7 +36,7 @@ All skills follow the [Agent Skills Specification](https://agentskills.io).
 | Skill | Semantic Name | Role (Persona) | Primary Output |
 | :--- | :--- | :--- | :--- |
 | `cortex` | Central Dispatcher | The Brain | Decision & Routing |
-| `architectural-design` | Architecture Design | The Legislator | `specs/`, `tickets/` |
+| `architectural-design` | Architecture Design | The Legislator | `specs/`, `.agent/tickets/` |
 | `code-implementation` | Implementation | The Executor | Source Code, Unit Tests |
 | `code-review` | Code Review | The Judge | Review Reports |
 | `system-diagnosis` | Reliability Eng. | The Detective | RCA Reports, Repro Scripts |

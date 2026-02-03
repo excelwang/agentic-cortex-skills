@@ -24,7 +24,7 @@ The workflow consists of a single Agent transitioning between different **Person
 - **Action**: Cortex loads `architectural-design/SKILL.md`.
 
 ### T2: DESIGNING -> CODING (Context: Handoff)
-- **Trigger**: Design Artifacts (`specs/*`, `tickets/*`) are finalized.
+- **Trigger**: Design Artifacts (`specs/*`, `.agent/tickets/*`) are finalized.
 - **Action**: Cortex switches context, loads `code-implementation/SKILL.md`.
 
 ### T3: CODING -> REVIEWING (Context: Checkpoint)
