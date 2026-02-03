@@ -9,6 +9,14 @@ The Agentic Cortex is a **Single-Agent, Multi-Persona Orchestrator**.
 
 Instead of spawning multiple distinct agents, it allows one capability-rich agent to **sequentially adopt different Skills**. This approach minimizes context-switching overhead while maintaining the rigorous discipline of a multi-role team.
 
+## 1.5 Context Isolation (Multi-Agent Concurrency)
+While the system uses a Single Agent *conceptually* at any given moment, it supports **concurrent workstreams** for multiple instantiated Agents (e.g., in a team or parallel sessions).
+
+- **Processor (CPU)**: The Agent instance.
+- **Memory (RAM)**: The specific Workstream Directory (`.agent/workstreams/wk-{id}/`).
+- **Variable**: All Skills (except Cortex) use the relative variable `$wk-current` to reference their memory.
+- **Global Awareness (Cortex)**: Only Cortex is aware of the absolute paths to efficiently route the Agent to the correct memory block.
+
 ## 2. Component Diagram
 
 ```mermaid

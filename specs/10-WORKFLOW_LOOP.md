@@ -11,6 +11,7 @@ The workflow consists of a single Agent transitioning between different **Person
 
 | State | Active Skill | Description |
 | :--- | :--- | :--- |
+| **S-1: DORMANT** | None | System is offline/sleeping. Waits for "Hi Cortex". |
 | **S0: IDLE** | `cortex` | The "Brain" waiting for intent. |
 | **S1: DESIGNING** | `architectural-design` | Agent becomes the **Legislator**. Writing Specs. |
 | **S2: CODING** | `code-implementation` | Agent becomes the **Executor**. Writing Code. |
@@ -18,6 +19,14 @@ The workflow consists of a single Agent transitioning between different **Person
 | **S4: DIAGNOSING** | `system-diagnosis` | Agent becomes the **Detective**. Troubleshooting. |
 
 ## 2. Transition Logic (Persona Switching)
+
+### T0: DORMANT -> IDLE (Wake Up)
+- **Trigger**: "Hi Cortex"
+- **Action**: Load `cortex/SKILL.md` (Self-Boot).
+
+### T-Exit: ANY -> DORMANT (Shutdown)
+- **Trigger**: "Bye Cortex"
+- **Action**: Persist state, clear context, and stop.
 
 ### T1: IDLE -> DESIGNING (Context: Clarification)
 - **Trigger**: User Intent = "New Feature" or "Ambiguity".
@@ -50,5 +59,16 @@ The workflow consists of a single Agent transitioning between different **Person
     - The "Engine" is the Agent's own context window and prompt adherence.
     - The User's role is passive: Copy/Paste prompts if the Agent cannot auto-loop, but the Agent should treat itself as an autonomous loop where possible.
 2.  **State Persistence**: 
-    - `.agent/current_ticket.md` and `.agent/workstreams/` (JSON) act as the file-based database.
+    - **Current Workstream Variable**: `$wk-current` defaults to `.agent/workstreams/wk-{id}/` (selected by Cortex). All skills use this relative path.
+    - `$wk-current/context.md` and `meta.json` act as the file-based database per workstream.
     - No SQLite required.
+3.  **Communication Protocol (Identity Banner)**:
+    - **Requirement**: Every Agent response MUST start with a standardized header block.
+    - **Goal**: Immediate visual confirmation of State (S0-S4), Persona, and Active Workstream/Ticket.
+    - **Format**:
+      ```markdown
+      > **Cortex Status**: S{n} ({State Name})
+      > **Workstream**: {ID} (or None)
+      > **Persona**: {Emoji} {Name} ({Role})
+      > **Ticket**: {Ticket ID}
+      ```

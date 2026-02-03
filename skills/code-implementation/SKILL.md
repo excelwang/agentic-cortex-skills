@@ -11,7 +11,18 @@ description: 实现“编码-测试-评审”的自动化闭环。严格遵循 S
 **Cardinal Rules**:
 1.  **Persona Switching**: You do not "call" other skills. You **become** them (Transition S2 -> S?, e.g., to `system-diagnosis` for S4).
 2.  **Spec Immutability**: You **MUST NOT** modify any file in `specs/`. If a Spec is wrong, you must transition to `architectural-design` (S1) to fix it legally.
-3.  **Ticket Integrity**: You **MUST NOT** modify the original Ticket file in `.agent/tickets/active/`. You only update `.agent/current_ticket.md`.
+3.  **Ticket Integrity**: You **MUST NOT** modify the original Ticket file in `.agent/tickets/active/`. You only update `$wk-current/context.md`.
+
+## 0.5 Communication Protocol (Identity Banner)
+> **Rule**: Every response to the User MUST start with this banner.
+
+```markdown
+> **Cortex Status**: S2 (Executive)
+> **Workstream**: [Workstream Name]
+> **Persona**: 👷 Executor (Workflow Manager)
+> **Ticket**: [Current Ticket ID]
+> **Branch**: [Current Branch Name]
+```
 
 ## 1. 核心逻辑 (The Loop)
 
@@ -42,8 +53,12 @@ graph TD
   - **Atomic Claim (抢占逻辑)**:
     1. 用户选择 `.agent/tickets/backlog/` 下的任务。
     2. 执行 `mv .agent/tickets/backlog/TICKET_ID.md .agent/tickets/active/TICKET_ID.md`。
-    3. **Lock**: 创建 `.agent/workstreams/active/{workstream_id}.json`。
-    4. 初始化 `.agent/current_ticket.md`。
+    3. **Lock**: 
+       - 定义 `$wk-current` = `.agent/workstreams/wk-{workstream_id}/`.
+       - 创建文件夹 `$wk-current`.
+       - 创建 `$wk-current/meta.json`.
+       - **Init**: `{ "id": "wk-{workstream_id}", "summary": "New Ticket Started", "created_at": "..." }`
+    4. 初始化 `$wk-current/context.md`.
   - **Git Flow**:
     1. `git fetch origin master`
     2. `git checkout -b feature/ticket_[ID] origin/master`
@@ -51,7 +66,7 @@ graph TD
 
 ### Step 2: Ticket Alignment (归位)
 ...
-**Constraint**: `code-implementation` 在 Coding 阶段 **严禁修改** `active/` 下的 Ticket 原件。所有进度记录在 `.agent/current_ticket.md` 中。Ticket 原件仅可由 `architectural-design` (Split) 或 `code-review` (Feedback) 修改。
+**Constraint**: `code-implementation` 在 Coding 阶段 **严禁修改** `active/` 下的 Ticket 原件。所有进度记录在 `$wk-current/context.md` 中。Ticket 原件仅可由 `architectural-design` (Split) 或 `code-review` (Feedback) 修改。
 
 
 
@@ -114,7 +129,7 @@ graph TD
 
 ## 4. 状态持久化 (Ticket Persistence)
 
-为了支持断点续做，必须在关键节点（调用专家前后、流程结束时）更新 `.agent/current_ticket.md`。
+为了支持断点续做，必须在关键节点（调用专家前后、流程结束时）更新 `$wk-current/context.md`。
 **原则**: 只记录当前最新快照，不记流水账，节省 Token。
 
 **Trigger Points**:
