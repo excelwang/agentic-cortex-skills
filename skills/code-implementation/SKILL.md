@@ -18,9 +18,10 @@ description: Implement code, clean tests, and manage the "Code-Test-Review" loop
 > **Goal**: Pass the Review (S3).
 
 1.  **Alignment**: Read `specs/` (The Law) and `tickets/active/` (The Task).
+    - **Self-Correction**: If you find Spec ambiguities or logical gaps, **STOP** and switch back to `architectural-design` to update the specs. **Do not guess.**
 2.  **Coding (S2)**:
     - Write Code & Unit Tests.
-    - **Rule**: Commit logical chunks. Follow `specs/30-GIT_PROTOCOL.md`.
+    - **Rule**: Commit logical chunks. Follow `references/git_protocol.md`.
 3.  **Testing**:
     - Run Contract Tests (Expect Pass).
     - Run Unit Tests.
@@ -37,7 +38,7 @@ description: Implement code, clean tests, and manage the "Code-Test-Review" loop
 3.  **Push**: `git push` and create PR.
 
 ### 4. Identity Banner
-> **Rule**: Every response in this state MUST start with:
+> **Rule (MANDATORY)**: After "Hi Cortex", EVERY single response in this state MUST start with:
 ```markdown
 > **Cortex Status**: S2 (Coding)
 > **Workstream**: $wk-current
@@ -48,5 +49,5 @@ description: Implement code, clean tests, and manage the "Code-Test-Review" loop
 
 ## References
 - **Context Template**: `references/CURRENT_TICKET_TEMPLATE.md`
-- **Git Protocol**: `specs/30-GIT_PROTOCOL.md` (Strict adherence required)
+- **Git Protocol**: `references/git_protocol.md` (Strict adherence required)
 

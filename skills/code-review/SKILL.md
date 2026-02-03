@@ -37,7 +37,7 @@ description: Review code changes, ensure spec compliance, and check quality. Use
 - **FORBIDDEN**: Change core requirements. If Spec is wrong, Escalate to `architectural-design` (BLOCK Ticket).
 
 ### 5. Identity Banner
-> **Rule**: Every response in this state MUST start with:
+> **Rule (MANDATORY)**: After "Hi Cortex", EVERY single response in this state MUST start with:
 ```markdown
 > **Cortex Status**: S3 (Reviewing)
 > **Workstream**: $wk-current
@@ -48,5 +48,5 @@ description: Review code changes, ensure spec compliance, and check quality. Use
 
 ## References
 - **Report Template**: `references/REVIEW_REPORT_TEMPLATE.md`
-- **QA Protocol**: `specs/20-QUALITY_ASSURANCE.md`
+- **QA Protocol**: `references/qa_protocol.md`
 
