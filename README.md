@@ -45,16 +45,17 @@ All skills follow the [Agent Skills Specification](https://agentskills.io).
 
 ## 📁 Library Structure
 
-This repository is a flat collection of skills. It should be mounted at `.agent/skills/` in your project.
+This repository contains a collection of skills organized in the `skills/` directory.
 
 ```text
 .
 ├── README.md                 # Framework overview
-├── architectural-design/     # Legislative Skill
-├── code-implementation/      # Executive Skill
-├── code-review/              # Judiciary Skill
-├── system-diagnosis/         # Diagnostician Skill
-└── cortex/                   # Unified Entrypoint
+├── skills/
+│   ├── architectural-design/     # Legislative Skill
+│   ├── code-implementation/      # Executive Skill
+│   ├── code-review/              # Judiciary Skill
+│   ├── system-diagnosis/         # Diagnostician Skill
+│   └── cortex/                   # Unified Entrypoint
 ```
 
 ---
