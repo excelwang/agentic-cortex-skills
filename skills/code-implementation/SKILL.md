@@ -55,11 +55,8 @@ graph TD
        - `git checkout tracking`
        - `git pull origin tracking`
     2. **Lock**:
-       - 用户选择 `tickets/backlog/` 下的任务。
-       - `mv tickets/backlog/TICKET_ID.md tickets/active/TICKET_ID.md`.
-       - `git add tickets/`
-       - `git commit -m "feat(ticket): claim TICKET_ID"`
-       - `git push origin tracking`
+       - **Protocol**: Execute "Claiming (The Lock)" as defined in `specs/30-GIT_PROTOCOL.md`.
+       - `mv tickets/backlog/TICKET_ID.md tickets/active/TICKET_ID.md` (and commit to tracking).
     3. **Branch Setup**:
        - `git checkout -b feature/TICKET_ID`
        - 创建文件夹 `.agent/workstreams/{branch_name}/` (Physical Path required here).
@@ -106,16 +103,10 @@ graph TD
 - **Commit Strategy (提交粒度)**:
   - 遵循 **"逻辑完整性 (Logical Completeness)"** 原则。
   - **Commit Message Format (MANDATORY)**:
-    - 必须使用 **Conventional Commits** (e.g., `feat:`, `fix:`, `refactor:`, `docs:`, `test:`).
-    - **Header**: `<type>(<scope>): <subject>` (e.g., `feat(auth): implement login session`)
-    - **Body**: 必须引用 **Ticket ID** 和 **Spec Section**。
-    - **Example**:
-      ```text
-      feat(cortex): add self-reflection at startup (TICKET-002)
-
-      - Implements T-Reflect transition from specs/10-WORKFLOW.md
-      - Scans git log for spec drift.
-      ```
+    - **Protocol**: Strict adherence to `specs/30-GIT_PROTOCOL.md` Section 3.
+    - **Header**: `<type>(<scope>): <subject>`
+    - **Body**: MUST reference Ticket ID and Spec Section.
+  - **Why**: Cortex Self-Reflection relies on these messages to detect Spec Drift.
   - **Why**: Cortex Self-Reflection relies on these messages to detect Spec Drift.
   - **Action**: 每完成一个独立的子任务后，执行 `git commit`。
 
@@ -151,12 +142,8 @@ graph TD
    - `rm -rf $wk-current`
    - `git add .agent/workstreams/` (Commit deletion).
 3. **Ticket Release (Tracking)**:
-   - `git checkout tracking`
-   - `git pull origin tracking`
-   - **Move Ticket**: `mv tickets/active/TICKET_ID.md tickets/done/TICKET_ID.md`.
-   - `git add tickets/`
-   - `git commit -m "feat(ticket): complete TICKET_ID"`
-   - `git push origin tracking`
+   - **Protocol**: Execute "Releasing (The Unlock)" as defined in `specs/30-GIT_PROTOCOL.md`.
+   - Move ticket to `tickets/done/` on `tracking` branch.
 4. **Merge Feature**:
    - `git checkout feature/xxx`
    - `git pull --rebase origin master`

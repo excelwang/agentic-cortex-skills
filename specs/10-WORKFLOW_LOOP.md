@@ -69,25 +69,13 @@ The workflow consists of a single Agent transitioning between different **Person
     - **Workstream ID**: Current Git Branch name.
     - **Context Storage**: Local `.agent/workstreams/{branch_name}/`.
     - **Lifecycle**: Temporary context is kept in the branch-specific folder; deleted before merging to `master`.
-    - **Shared Registry (Tickets)**: The `tickets/` directory on the **`tracking`** branch acts as the **Atomic Lock** for parallel development. This prevents direct commits to `master` for task management.
+    - **Shared Registry (Tickets)**: The `tickets/` directory logic is strictly defined in `specs/30-GIT_PROTOCOL.md`.
 
 3.  **Atomic Ticket Locking Protocol**:
-    - **Claiming (Lock)**:
-        1. Switch to `tracking` branch (or pull latest).
-        2. `git pull origin tracking`.
-        3. Move ticket from `tickets/backlog/` to `tickets/active/`.
-        4. `git commit -m "feat(ticket): claim TICKET_ID"` and `git push origin tracking`.
-        5. Switch back to feature branch to start work.
-    - **Completion (Release)**:
-        1. Switch to `tracking` branch.
-        2. `git pull origin tracking`.
-        3. Move ticket from `tickets/active/` to `tickets/done/`.
-        4. `git commit -m "feat(ticket): complete TICKET_ID"` and `git push origin tracking`.
-83: 
-84: 4.  **Commit Protocol (Semantic)**:
-    - **Format**: `type(scope): subject` + `Body`.
-    - **Requirement**: Body MUST reference the Spec File/Section being implemented.
-    - **Goal**: Enable Cortex Self-Reflection to trace code changes back to Specs.
+    > **Constraint**: Strict adherence to `specs/30-GIT_PROTOCOL.md` is mandatory.
+
+4.  **Commit Protocol (Semantic)**:
+    > **Constraint**: Strict adherence to `specs/30-GIT_PROTOCOL.md` Section 3.
 4.  **Communication Protocol (Identity Banner)**:
     - **Requirement**: Every Agent response MUST start with a standardized header block.
     - **Goal**: Immediate visual confirmation of State (S0-S4), Persona, and Active Workstream/Ticket.
