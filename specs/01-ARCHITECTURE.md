@@ -13,9 +13,9 @@ Instead of spawning multiple distinct agents, it allows one capability-rich agen
 While the system uses a Single Agent *conceptually* at any given moment, it supports **concurrent workstreams** for multiple instantiated Agents (e.g., in a team or parallel sessions).
 
 - **Processor (CPU)**: The Agent instance.
-- **Memory (RAM)**: The specific Workstream Directory (`.agent/workstreams/wk-{id}/`).
-- **Variable**: All Skills (except Cortex) use the relative variable `$wk-current` to reference their memory.
-- **Global Awareness (Cortex)**: Only Cortex is aware of the absolute paths to efficiently route the Agent to the correct memory block.
+- **Memory (RAM)**: The specific Workstream Directory (`.agent/workstream/`, fixed relative path).
+- **Concurrency**: Achieved by switching Git branches. Each branch carries its own memory.
+- **Global Awareness (Cortex)**: Cortex simply checks the current branch name.
 
 ## 2. Component Diagram
 
@@ -27,6 +27,8 @@ graph TD
         Cortex -->|Switch Hat| Leg[Legislative Persona]
         Cortex -->|Switch Hat| Exec[Executive Persona]
         Cortex -->|Switch Hat| Jud[Judiciary Persona]
+        
+        Cortex -.->|Sleep| Dormant[S-1: Dormant]
     end
 
     Leg -->|Use Skill| Skill1[architectural-design]

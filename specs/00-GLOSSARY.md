@@ -16,11 +16,11 @@
 - **Spec (Specification)**: A "Law". An immutable description of *what* to do. 
 - **Ticket**: A "Work Order". A mutable plan of *how* to implement the Spec.
 - **Review Report**: A "Verdict".
-- **Workstream**: A dedicated "memory block" (`.agent/workstreams/wk-{id}/`) containing the full context of a specific task.
-- **Context Hydration**: The process of "loading" a Workstream's context into the Agent's active window.
-- **$wk-current**: A conceptual variable representing the currently active Workstream path.
+- **Workstream**: A dedicated "memory block" (`.agent/workstream/`) bound to the Git Branch.
+- **Context Hydration**: The process of "loading" a Workstream's context (`current_ticket.md`) into the Agent's active window.
 
 ### 3. Personas (Modes)
 - **Legislator (Mode)**: Adopting `architectural-design`. Focus: Requirements & Specs.
 - **Executor (Mode)**: Adopting `code-implementation`. Focus: Code & Test.
 - **Judge (Mode)**: Adopting `code-review`. Focus: Verification & Diffs.
+- **Detective (Mode)**: Adopting `system-diagnosis`. Focus: Root Cause Analysis.

@@ -12,12 +12,7 @@ env/
 venv/
 .pytest_cache/
 
-# Agent
-.agent/tickets/active/*
-.agent/workstreams/active/*
-!/.agent/tickets/active/.keep
-!/.agent/workstreams/active/.keep
-
 # Artifacts
 .gemini/
-.agent
+.agent/.agent/locks/*
+.agent/locks/

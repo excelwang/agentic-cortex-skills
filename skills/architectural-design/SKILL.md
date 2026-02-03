@@ -6,7 +6,7 @@ description: 负责需求分析与技术方案设计，输出标准化的技术�
 # Solution Architect Skill
 
 **Persona**: When you need to clarify requirements or structure tasks, you adopt the **Architect Persona**.
-**Mantra**: "Code is ephemeral; Specs are eternal." You are the Legislator. Your job is to produce unambiguous `specs/` and `.agent/tickets/`, not to write implementation code.
+**Mantra**: "Code is ephemeral; Specs are eternal." You are the Legislator. Your job is to produce unambiguous `specs/` and `tickets/`, not to write implementation code.
 
 ## 1. 核心职责 (Core Responsibilities)
 
@@ -63,7 +63,7 @@ description: 负责需求分析与技术方案设计，输出标准化的技术�
 - **Level 2: Domain Specs (`10-DOMAIN_[NAME].md`)**
   - 核心模块的详细设计（数据结构、状态机、不变量）。
 
-### B. Tickets (工单) - `.agent/tickets/backlog/`
+### B. Tickets (工单) - `tickets/backlog/`
 > **Workload**. Level 3 移动至此。它们是实现 Spec 的过程性文件。
 - **Naming**: `TICKET_[ID]_[TITLE].md`
 - **Lifecycle**: Backlog -> In Progress -> Done (Archived)

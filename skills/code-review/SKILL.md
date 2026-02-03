@@ -28,6 +28,7 @@ description: 统一的代码评审专家，支持新功能审查、重构对齐�
 - **Security**: 是否引入了注入风险或凭证泄露？
 - **Performance**: 是否存在明显的 O(N^2) 或不必要的 I/O？
 - **Log Spam**: 是否存在过多的日志输出？
+- **Commit Message**: Header 是否符合 Conventional Commits? Body 是否引用了 Ticket/Spec？(Crucial for Cortex Self-Reflection)
 
 ## 2. Review Modes (场景模式)
 

@@ -14,10 +14,17 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
 - **State**: S-1 (Dormant) -> S0 (IDLE)
 - **Action**: Wake up, scan workstreams, and present options.
 
+### Trigger: "Hi Cortex" (With Reflection)
+- **Pre-Flight Check**:
+    1. **Self-Reflection**: Read `specs/*` docs, and Check for recent merges (`git log --merges --since="24 hours ago" --oneline`).
+    2. **Drift Detection**: If recent merges exist, read Commit Messages.
+    3. **Prompt**: "I noticed recent merges: [List]. Do I need to update the Specs? (Switch to Architect?)"
+- **Action**: detailed below.
+
 ### Trigger: "Bye Cortex"
 - **State**: ANY -> S-1 (Dormant)
 - **Action**: 
-    1. Save current context to `$wk-current/context.md` (if active).
+    1. Save current context to `.agent/workstream/ticket.md`.
     2. Clear local variables.
     3. Respond: "Cortex Offline. Bye!" and stop processing as an Agent.
 
@@ -27,14 +34,21 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
 **Action**: Determine the current Workstream.
 
 1.  **Check Active Context**:
-    - List active workstreams in `.agent/workstreams/wk-*/`.
-    - Read `.agent/workstreams/wk-{id}/meta.json` for "summary" (if exists).
+    - **Workstream ID** = Current Git Branch (`git branch --show-current`).
+    - If Branch == `master` or `main`:
+         - Status: **No Active Workstream**.
+         - Action: Ask to start new (create branch).
+    - If Branch != `master`:
+         - Status: **Active Workstream: {branch_name}**.
+         - Action: Read `.agent/workstream/ticket.md` (if exists).
+
 2.  **Ask User**:
-    - "Resume [Workstream ID]: [Summary]?"
-    - "Or Start New Workstream?"
+    - "Resume Workstream [{branch_name}]?"
+    - "Or Start New Workstream (New Branch)?"
+
 3.  **Hydrate**:
-    - If Resume: Read `.agent/workstreams/wk-{id}/context.md` (and metadata JSON).
-    - If New: Create `.agent/workstreams/wk-{new_id}/` folder.
+    - If Resume: Load context from `.agent/workstream/ticket.md`.
+    - If New: Create branch -> Create empty `.agent/workstream/` directory.
 
 ## 1. Intent Analysis (State Transition Trigger)
 

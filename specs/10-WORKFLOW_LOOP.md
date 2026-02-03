@@ -28,6 +28,10 @@ The workflow consists of a single Agent transitioning between different **Person
 - **Trigger**: "Bye Cortex"
 - **Action**: Persist state, clear context, and stop.
 
+### T-Reflect: IDLE -> DESIGNING (Self-Correction)
+- **Trigger**: Cortex Startup (Self-Reflection) detects Spec Drift.
+- **Action**: Cortex recommends switching to `architectural-design` to update `specs/` before starting new work.
+
 ### T1: IDLE -> DESIGNING (Context: Clarification)
 - **Trigger**: User Intent = "New Feature" or "Ambiguity".
 - **Action**: Cortex loads `architectural-design/SKILL.md`.
@@ -58,11 +62,30 @@ The workflow consists of a single Agent transitioning between different **Person
     - This workflow does **not** require an external CLI binary.
     - The "Engine" is the Agent's own context window and prompt adherence.
     - The User's role is passive: Copy/Paste prompts if the Agent cannot auto-loop, but the Agent should treat itself as an autonomous loop where possible.
-2.  **State Persistence**: 
-    - **Current Workstream Variable**: `$wk-current` defaults to `.agent/workstreams/wk-{id}/` (selected by Cortex). All skills use this relative path.
-    - `$wk-current/context.md` and `meta.json` act as the file-based database per workstream.
-    - No SQLite required.
-3.  **Communication Protocol (Identity Banner)**:
+2.  **State Persistence (Git-Native)**:
+    - **Workstream ID**: Current Git Branch name.
+    - **Context Storage**: Local `.agent/workstream/tickets/`.
+    - **Lifecycle**: Temporary context is deleted before merging to `master`.
+    - **Shared Registry (Tickets)**: The `tickets/` directory on the `master` branch acts as the **Atomic Lock** for parallel development.
+
+3.  **Atomic Ticket Locking Protocol**:
+    - **Claiming (Lock)**:
+        1. Switch to `master` branch.
+        2. `git pull origin master`.
+        3. Move ticket from `tickets/backlog/` to `tickets/active/`.
+        4. `git commit -m "feat(ticket): claim TICKET_ID"` and `git push origin master`.
+        5. Switch back to feature branch to start work.
+    - **Completion (Release)**:
+        1. Switch to `master` branch.
+        2. `git pull origin master`.
+        3. Move ticket from `tickets/active/` to `tickets/done/`.
+        4. `git commit -m "feat(ticket): complete TICKET_ID"` and `git push origin master`.
+83: 
+84: 4.  **Commit Protocol (Semantic)**:
+    - **Format**: `type(scope): subject` + `Body`.
+    - **Requirement**: Body MUST reference the Spec File/Section being implemented.
+    - **Goal**: Enable Cortex Self-Reflection to trace code changes back to Specs.
+4.  **Communication Protocol (Identity Banner)**:
     - **Requirement**: Every Agent response MUST start with a standardized header block.
     - **Goal**: Immediate visual confirmation of State (S0-S4), Persona, and Active Workstream/Ticket.
     - **Format**:
