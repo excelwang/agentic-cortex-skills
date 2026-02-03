@@ -43,33 +43,40 @@ All skills follow the [Agent Skills Specification](https://agentskills.io).
 
 ---
 
-## 📁 Directory Structure
+## 📁 Library Structure
+
+This repository is a flat collection of skills. It should be mounted at `.agent/skills/` in your project.
 
 ```text
-.agent/
-├── skills/
-│   ├── cortex/               # Unified Entrypoint
-│   ├── architectural-design/ # Legislative Skill
-│   ├── code-implementation/  # Executive Skill
-│   ├── code-review/          # Judiciary Skill
-│   └── system-diagnosis/     # Diagnostician Skill
-├── tickets/                  # Work Orders (L3 Tasks)
-│   ├── backlog/              # Pending tasks
-│   ├── active/               # In-progress tasks
-│   └── done/                 # Completed tasks
-└── workstreams/              # Session Management
-    └── active/               # Active workstream state
+.
+├── README.md                 # Framework overview
+├── architectural-design/     # Legislative Skill
+├── code-implementation/      # Executive Skill
+├── code-review/              # Judiciary Skill
+├── system-diagnosis/         # Diagnostician Skill
+└── cortex/                   # Unified Entrypoint
 ```
 
 ---
 
-## 🚀 How to Use
+## 🚀 How to Integrate
 
-1.  **Initialize**: Call the `cortex` skill.
-2.  **Design**: Use `architectural-design` to clarify requirements and generate a Ticket.
-3.  **Implement**: Use `code-implementation` to execute the D-C-R loop.
-4.  **Review**: Let `code-review` authorize the merge.
-5.  **Diagnose**: If integration tests fail mysteriously, invoke `system-diagnosis`.
+Add this repository as a submodule to your project's `.agent/skills/` directory:
+
+```bash
+git submodule add https://github.com/your-org/agent-cortex .agent/skills
+```
+
+Your project structure should then look like:
+```text
+.agent/
+├── skills/ (Submodule: agent-cortex)
+│   ├── architectural-design/
+│   ├── code-implementation/
+│   └── ...
+├── rules/   (Project specific)
+└── tickets/ (Project specific)
+```
 
 ---
 
