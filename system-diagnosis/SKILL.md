@@ -42,7 +42,7 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 ### Action 2: 故障分析 (Diagnosis)
 当测试失败时：
 1. **不要盲猜**。
-2. **Read Logs**: 如果是集成测试失败，使用 `docker logs fustor_fusion_1` 或 `docker logs fustor_agent_a` 查看服务端/客户端日志。
+2. **Read Logs**: 如果是集成测试失败，查看服务端/客户端日志（例如，使用 `docker logs <container_name>` 或其他日志收集工具）。
 3. **Keyword Search**: 搜索 `ERROR`, `EXCEPTION`, `Traceback`, `Deadlock`。
 4. **定位**: 区分是 **Code Bug** (业务逻辑错) 还是 **Test Bug** (测试写得烂/不稳)。
 
@@ -50,18 +50,3 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 - **单文件单用例**: 严禁一个文件堆砌几十个 Case。
 - **Wait, Don't Sleep**: 严禁 `time.sleep(5)`。必须使用 `wait_for_condition()`。
 - **Reset First**: 确保每个 Case 运行前环境是干净的。
-
-## 4. 集成测试最佳实践 (Specific to Fustor IT)
-
-- **容器交互**: 使用 `docker_manager.exec_in_container` 模拟真实 NFS 操作。
-- **一致性验证**: 再验证 Audit 或 Sync 结果前，必须等待至少一个周期 (`wait_for_audit`)。
-- **时钟偏差**: 注意测试环境中 Agent A/B 故意设置的时间偏差 (+2h/-1h)，不要被假时间欺骗。
-- **角色转换监控**: 善用 `fusion_client.get_workstreams()` 实时观察 Agent 的角色转换（Leader/Follower）和 `is_realtime_ready` 状态。
-- **环境复用与清理**:
-  - **Trust Reuse**: 默认直接运行测试，系统会自动复用容器。仅在依赖变化时 rebuild。
-  - **Hot Reload**: 修改 `src` 代码后可直接重跑测试，挂载卷会自动生效，无需重启容器。
-  - **Clean State**: 仅在严重环境污染（如权限错误）时才执行 `docker-compose down -v`。
-- **验收顺序 (Refactoring Gate)**:
-  1. **A组 (Leader Election)**: 确保选举正常。
-  2. **B组 (Blind Spot)**: 确保 NFS 盲区变动能被 Audit 扫到。
-  3. **C/D组 (Consistency)**: 检查复杂冲突和 Tombstone 清理。
