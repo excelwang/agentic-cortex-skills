@@ -22,7 +22,10 @@ The workflow consists of a single Agent transitioning between different **Person
 
 ### T0: DORMANT -> IDLE (Wake Up)
 - **Trigger**: "Hi Cortex"
-- **Action**: Load `cortex/SKILL.md` (Self-Boot).
+- **Action**: 
+    1. Load `cortex/SKILL.md` (Self-Boot).
+    2. Detect Branch & Workstream State.
+    3. Auto-transition to `architectural-design` (if main) or `code-implementation`/`code-review` (if dev).
 
 ### T-Exit: ANY -> DORMANT (Shutdown)
 - **Trigger**: "Bye Cortex"

@@ -30,25 +30,25 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
 
 ## 0. Context Hydration (Startup)
 
-**Trigger**: When Cortex starts (State S0).
-**Action**: Determine the current Workstream.
+**Trigger**: When Cortex starts (State S0) via "Hi Cortex".
+**Action**: Automatically activate the appropriate Persona based on Git context.
 
-1.  **Check Active Context**:
-    - **Workstream ID** = Current Git Branch (`git branch --show-current`).
-    - If Branch == `master` or `main`:
-         - Status: **No Active Workstream**.
-         - Action: Ask to start new (create branch).
-    - If Branch != `master`:
-         - Status: **Active Workstream: {branch_name}**.
-         - Action: Read `.agent/workstream/ticket.md` (if exists).
+1.  **Branch Detection**:
+    - `branch_name` = `git branch --show-current`.
+    - If `branch_name` in [`master`, `main`]:
+         - **Auto-Activate**: `architectural-design` (Transition T1).
+         - **Reason**: Main branches are for specs and high-level design.
+    - Else (Dev Branch):
+         - **Step A**: Read `.agent/workstream/ticket.md`.
+         - **Step B**: Parse `Global Status`.
+             - If `Reviewing`: **Auto-Activate**: `code-review` (Transition T3).
+             - If `Coding` | `Fixing` | `ticket.md` missing: **Auto-Activate**: `code-implementation` (Transition T2).
+         - **Step C**: If system is broken or tests fail, User can manually override or system triggers `system-diagnosis` (Transition T5).
 
-2.  **Ask User**:
-    - "Resume Workstream [{branch_name}]?"
-    - "Or Start New Workstream (New Branch)?"
-
-3.  **Hydrate**:
-    - If Resume: Load context from `.agent/workstream/ticket.md`.
-    - If New: Create branch -> Create empty `.agent/workstream/` directory.
+2.  **User Acknowledge**:
+    - "Branch detected: {branch_name}."
+    - "Workstream status: {Global Status}."
+    - "Cortex auto-activating: {Skill Name}."
 
 ## 1. Intent Analysis (State Transition Trigger)
 
