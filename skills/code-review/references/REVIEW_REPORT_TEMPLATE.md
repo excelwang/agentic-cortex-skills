@@ -1,29 +1,20 @@
 # Code Review Report
 
-## Summary
-- **Outcome**: [PASS / FAIL]
-- **Ticket**: [Ticket ID]
-- **Commit**: [Commit Hash]
+## 1. Summary
+- **Verdict**: [PASS | FAIL | BLOCKED]
+- **Rating**: [0-100]
+- **Mode**: [Feature | Refactor | Test]
 
-## Persona Alignment
-- **Mission**: As the **Judiciary**, I have examined this increment against the "Laws" defined in the project Specs.
+## 2. Findings (Table 1: Consistency)
 
-| Impacted Domain | Selected Test Suite | Rationale |
+| Severity | File | Line | Issue | Suggestion |
+| :--- | :--- | :--- | :--- | :--- |
+| High | `src/auth.py` | 42 | Hardcoded secret | Use env var |
+| Medium | `tests/test_x.py` | 10 | Flaky test | Increase timeout |
+
+## 3. Implementation Gaps (Table 2: Completeness)
+
+| Requirement (Spec/Ticket) | Status | Comment |
 | :--- | :--- | :--- |
-| [e.g. Consistency] | [e.g. tests/integration/] | [e.g. Modified core logic] |
-
-## Findings
-
-### 1. Detailed Findings & Consistency Matrix
-| ID | Item Description | PR Implementation | Expected (Spec/Master) | Analysis | Suggestion |
-| :-- | :--- | :--- | :--- | :--- | :--- |
-| 1 | | | | | |
-
-### 2. Missing Features / Gaps
-| ID | Functionality/Scenario | Current Status | Expected Status | Action Item |
-| :-- | :--- | :--- | :--- | :--- |
-| 1 | | | | |
-
-## Verification Gate (Contract Tests)
-- [ ] Contract Tests Passed
-- [ ] No regression in Master test suite
+| "Must support OAuth" | Missing | Not implemented yet |
+| "Latency < 200ms" | Pending | No benchmark provided |

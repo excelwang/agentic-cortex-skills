@@ -1,35 +1,33 @@
-# Task Document Template
+# Ticket Template
 
-此模板用于定义 Level 3 Ticket (工单)。
+> **Status**: [Active | Backlog | Done | Paused]
+> **Type**: [Feature | Bugfix | Refactor | Chore]
+> **Workstream**: [Branch Name]
 
-```markdown
-# Ticket: [ID] [Title]
-> Status: Draft | Backlog | In Progress | Paused | Reviewing | Done
-> Owner: AI Assistant
-> Created: 202X-XX-XX
+## 1. Context
+[Brief description of why this ticket exists. Link to parent Spec.]
 
-## 1. Goal (目标)
-简述本次变更的业务价值。
+## 2. Requirements
 
-## 2. References (依据)
-> 此任务必须基于以下 Spec 执行：
-- [ ] Spec: `specs/10-DOMAIN_XXX.md`
-- [ ] Prerequisites: Ticket ID [If Any]
+### A. Functional (Must Have)
+- [ ] Requirement 1
+- [ ] Requirement 2
 
-## 3. Scope & Deliverables (范围与交付物)
-- [ ] Logic: `src/core/pipeline.py`
-- [ ] **Contract Test**: `tests/contracts/{domain}/ticket_001_test.py` (Skeleton Created)
-- [ ] **Mock**: `tests/fixtures/mocks/mock_pipeline.py` (If required by others)
-- [ ] Unit Test: `tests/unit/core/test_pipeline.py` (Optional)
+### B. Non-Functional (Should Have)
+- [ ] Performance: < 200ms
+- [ ] Security: Input validation
 
-## 4. Work Breakdown (执行步骤)
-按依赖顺序拆解为原子步骤（对应 Atomic Commits）：
-1. **Step 1**: Define Interface (Interface-first design)
-2. **Step 2**: Implement Core Logic
-3. **Step 3**: Update Tests
+## 3. Implementation Plan
 
-## 5. Acceptance Criteria (验收标准)
-> Review Gate Checklist
-- [ ] Feature Parity: 旧版逻辑/功能是否完全覆盖？
-- [ ] Test Pass: `[Test Command]` 全绿。
-```
+> **Strategy**: [Test-First | Mock-First | Prototype]
+
+1.  **Phase 1: Setup & Definition**
+    - Create `specs/10-DOMAIN_XXX.md`.
+    - Create `tests/contracts/xxx_test.py`.
+
+2.  **Phase 2: Core Logic**
+    - Implement `src/core/logic.py`.
+
+## 4. Acceptance Criteria (DoD)
+- [ ] All tests in `tests/contracts/` pass.
+- [ ] Spec `specs/10-DOMAIN_XXX.md` is updated.
