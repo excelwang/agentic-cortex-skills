@@ -33,34 +33,17 @@ graph TD
 
 在开始任何工作前，必须先确定"我是谁"。
 
-### Step 0: Workstream Identification
-**Action**:
-1. 读取 `.agent/workstreams/active/` 目录下的所有 JSON 文件。
-2. **List & Ask**: 向用户展示当前活跃的 Workstream 列表。
-   - Option [R]: **Resume** <Workstream_ID>
-   - Option [N]: **New Workstream** (创建一个新 Workstream)
-     > **Smart Recommendation (Context Affinity)**:
-     > 如果刚完成 Ticket 或有遗留上下文，优先推荐亲和度高的 Ticket：
-     > - **Score Rule**: 
-     >   - `+20` Same Parent Ticket/Sequence
-     >   - `+10` Same Domain Spec
-     >   - `+5`  Overlapping File Paths
-     > - **Display**: "[HIGH AFFINITY] Ticket_002 (Reuses loaded context)"
-   - Option [C]: **Clear/Wipe** (强制清除某些过期的僵尸 Workstream)
+### Step 0: Workstream Initialization
+> **Prerequisite**: Cortex (S0) should have already determined whether to Resume or Start New.
 
-### Step 1: Initialization
-- **If Resume**:
-  - 读取选定 Workstream 的 JSON 文件。
-  - 恢复 `Base Commit` 和 `Iteration Count`。
-  - 读取 `.agent/current_ticket.md` (Context Resume)。
-- **If New Workstream**:
-  - 生成新的 Workstream ID。
+- **If Resume** (Context Loaded):
+  - Verify `Base Commit` matches current HEAD.
+- **If New Workstream** (Context Empty):
   - **Atomic Claim (抢占逻辑)**:
-    1. 用户选择 `backlog/` 下的任务。
+    1. 用户选择 `.agent/tickets/backlog/` 下的任务。
     2. 执行 `mv .agent/tickets/backlog/TICKET_ID.md .agent/tickets/active/TICKET_ID.md`。
-    3. **Check**: 如果 `mv` 失败（文件不存在），说明被抢占 -> **Retry**。
-    4. **Lock**: 成功后，创建 `.agent/workstreams/active/{workstream_id}.json` 记录 Claim。
-    5. 初始化 `.agent/current_ticket.md`。
+    3. **Lock**: 创建 `.agent/workstreams/active/{workstream_id}.json`。
+    4. 初始化 `.agent/current_ticket.md`。
   - **Git Flow**:
     1. `git fetch origin master`
     2. `git checkout -b feature/ticket_[ID] origin/master`
