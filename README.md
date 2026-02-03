@@ -64,7 +64,7 @@ This repository is a flat collection of skills. It should be mounted at `.agent/
 Add this repository as a submodule to your project's `.agent/skills/` directory:
 
 ```bash
-git submodule add https://github.com/your-org/agent-cortex .agent/skills
+git submodule add git@github.com:excelwang/agentic-cortex-skills.git .agent/skills
 ```
 
 Your project structure should then look like:
