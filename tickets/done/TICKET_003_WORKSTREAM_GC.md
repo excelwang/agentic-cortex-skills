@@ -32,5 +32,5 @@ If a branch is deleted manually (e.g., `git branch -D`), or if the Agent crashes
     -   Let's put the script in `system-diagnosis` toolkit first, or a global `scripts/` dir.
 
 ## 4. Acceptance Criteria
-- [ ] `scripts/maintenance/gc_workstreams.py` exists and works.
-- [ ] `cortex/SKILL.md` is updated to suggest running GC if workstreams look cluttered (Optional) OR `system-diagnosis` has a new Action "Clean Up".
+- [x] `scripts/maintenance/gc_workstreams.py` exists and works.
+- [x] `cortex/SKILL.md` is updated to suggest running GC if workstreams look cluttered (Optional) OR `system-diagnosis` has a new Action "Clean Up".

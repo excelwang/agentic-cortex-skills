@@ -36,24 +36,19 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 
 When invoked in **Emergency Mode** (e.g., unexpected Git conflict or Test Environment crash):
 1.  **Stop**: Do not proceed blindly.
-2.  **Diagnose**: Identify the error (e.g., `git merge` conflict marker, `pytest` connection refused).
-3.  **Heal (Attempt 1)**:
-    - **Git**: `git merge --abort` or `git checkout --ours/theirs` (if safe).
-    - **Test**: `uv sync` or `docker restart <impl-container>`.
+2.  **Diagnose**: Identify the error.
+3.  **Heal (Safe Mode)**:
+    - **Git**: Follow recovery protocols in `specs/30-GIT_PROTOCOL.md`.
+    - **Env**: Restart runtime/containers if compliant with `specs/99-ENVIRONMENT.md`.
 4.  **Return**: Report status "HEALED" or "FAILED" back to the Caller Persona.
 
 ## 3. Boundary
 - **Unit Tests**: Pass/Fail 由 `code-implementation` 自己负责。
 - **Integration/Chaos**: 由 `system-diagnosis` 负责深入挖掘。
 
-### Type B: Regression Testing (回归)
-- **范围**: 运行受影响模块的所有相关测试。
-- **命令**: `pytest tests/integration/ tests/unit/` (举例)
-- **目标**: 证明老功能没挂。
-
-### Type C: Full Suite (发布前)
-- **范围**: 全量测试。
-- **目标**: 最后的防线。
+### Regression & Full Suite
+- **Goal**: Ensure no regression in legacy features.
+- **Protocol**: Execute tests as defined in `specs/20-QUALITY_ASSURANCE.md`.
 
 ## 2. 核心能力与动作 (Actions)
 
@@ -70,14 +65,22 @@ When invoked in **Emergency Mode** (e.g., unexpected Git conflict or Test Enviro
 4. **定位**: 区分是 **Code Bug** (业务逻辑错) 还是 **Test Bug** (测试写得烂/不稳)。
 
 ### Action 3: 编写/修复测试 (Maintenance)
-- **单文件单用例**: 严禁一个文件堆砌几十个 Case。
-- **Wait, Don't Sleep**: 严禁 `time.sleep(5)`。必须使用 `wait_for_condition()`。
-- **Reset First**: 确保每个 Case 运行前环境是干净的。
+- **Constraint**: Strict adherence to `specs/20-QUALITY_ASSURANCE.md` (Test Strategy).
+- **Focus**: Determinism and Cleanliness.
+
+
+### Action 4: System Hygiene (Garbage Collection)
+- **Goal**: Clean up stale artifacts (e.g., orphaned workstream directories).
+- **Tool**: `scripts/maintenance/gc_workstreams.py`.
+- **Trigger**: System startup, user request, or when disk usage / directory clutter is suspected.
+- **Usage**:
+  - `python3 scripts/maintenance/gc_workstreams.py` (Dry Run)
+  - `python3 scripts/maintenance/gc_workstreams.py --apply` (Execute)
 
 ## 4. Knowledge Capture (Prevention)
 > **Rule**: After every successful Root Cause Analysis (RCA), capture the lesson to prevent the "Detective" from having to solve the same case twice.
 
 1. **Trigger**: RCA 结束或问题修复。
 2. **Action (APPEND ONLY)**: 
-   - 在 `.agent/brain/lessons.md` 中**追加记录**故障特征、根因以及如何快速检测该问题。
-   - **Restriction**: 侦探无权修改历史记录。如有过时信息，请标注为“Obsolete”并由 `architectural-design` 处理。
+   - **Manual**: Currently, append entry to `.agent/brain/lessons.md`.
+   - **Automated (Future)**: Use `scripts/record_lesson.py` (See Ticket 005).
