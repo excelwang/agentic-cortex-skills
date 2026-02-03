@@ -64,6 +64,15 @@ graph TD
        - `git checkout -b feature/TICKET_ID`
        - 创建文件夹 `.agent/workstreams/{branch_name}/`.
        - 从 `tickets/active/TICKET_ID.md` 拷贝到 `.agent/workstreams/{branch_name}/ticket.md`。
+       - **Initialize Status**: 创建 `.agent/workstreams/{branch_name}/status.json`：
+         ```json
+         {
+           "persona": "executor",
+           "state": "S2",
+           "ticket_id": "TICKET_ID",
+           "summary": "Starting work"
+         }
+         ```
   - **Git Flow**:
     1. `git fetch origin master`
     2. `git checkout -b feature/ticket_[ID] origin/master`
@@ -155,7 +164,7 @@ graph TD
 
 ## 4. 状态持久化 (Ticket Persistence)
 
-为了支持断点续做，必须在关键节点（调用专家前后、流程结束时）更新 `.agent/workstreams/{branch_name}/ticket.md`。
+为了支持断点续做，必须在关键节点（调用专家前后、流程结束时）更新 `.agent/workstreams/{branch_name}/ticket.md` 以及 **`status.json`**。
 **原则**: 只记录当前最新快照，不记流水账，节省 Token。
 
 **Trigger Points**:

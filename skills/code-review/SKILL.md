@@ -89,5 +89,14 @@ description: 统一的代码评审专家，支持新功能审查、重构对齐�
 - **语言**: 除非用户另有要求，默认使用 **中文** 输出报告。
 - **证据先行**: 必须引用具体的文件路径和行号。
 - **Actionable**: 所有 Findings 必须配有明确的 `Suggestion` 或 `Action Item`。
-- **Metadata Update**: 每次 Review 结束，必须更新 `$wk-current/meta.json` 中的 `summary` 字段（15字以内简述当前状态，如 "API Design Done" 或 "Fixing Login Bug"）。
+- **Metadata Update**: 每次 Review 结束，必须更新 `$wk-current/meta.json` (或 `status.json`) 中的 `summary` 字段（15字以内简述当前状态）。
+
+## 6. Knowledge Distillation (Self-Evolution)
+> **Rule**: If a review reveals a pattern that could prevent future errors or improve the project's "Laws", the Judge MUST distill this knowledge.
+
+1. **Trigger**: 发现重复性错误、严重的 Spec 缺失、或非常优雅的重构范式。
+2. **Action (APPEND ONLY)**: 
+   - 将经验**追加 (Append)** 写入 `.agent/brain/lessons.md`。
+   - **Restriction**: 严禁修改或删除已有条目。如需订正，请呼叫 `architectural-design`。
+   - 如果 Lesson 具有普遍性，呼叫 `architectural-design` 更新相关的 `specs/`。
 

@@ -16,9 +16,13 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
 
 ### Trigger: "Hi Cortex" (With Reflection)
 - **Pre-Flight Check**:
-    1. **Self-Reflection**: Read `specs/*` docs, and Check for recent merges (`git log --merges --since="24 hours ago" --oneline`).
-    2. **Drift Detection**: If recent merges exist, read Commit Messages.
-    3. **Prompt**: "I noticed recent merges: [List]. Do I need to update the Specs? (Switch to Architect?)"
+    1. **Self-Reflection**:
+        - Read `.agent/workstreams/reflection.json` to get `last_checked_commit`.
+        - Check for new merges/specs: `git log {last_commit}..HEAD --specs/ --merges --oneline`.
+    2. **Drift Detection**: If new commits exist, analyze them.
+    3. **Action**: 
+        - If Drift: "I noticed recent changes since your last check. Switch to Architect?"
+        - Update `reflection.json` with current `HEAD` after session start or explicit check.
 - **Action**: detailed below.
 
 ### Trigger: "Bye Cortex"
@@ -34,11 +38,11 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
 **Action**: Perform mandatory Self-Reflection before any auto-activation.
 
 1.  **Pre-Flight Check (Self-Reflection - CRITICAL)**:
-    - **Step A**: Read `specs/*` docs.
-    - **Step B**: Check for recent merges (`git log --merges --since="24 hours ago" --oneline`).
-    - **Step C**: If recent merges exist, analyze for **Spec Drift**.
-    - **Verdict**: If Drift is detected or Specs are outdated, MUST **Auto-Activate**: `architectural-design` (Transition T1) regardless of branch name.
-    - **Banner**: "I noticed recent merges/spec drift. Switching to Architect to update laws first."
+    - **Step A**: Fetch `last_checked_commit` from `.agent/workstreams/reflection.json`.
+    - **Step B**: Check for new commits: `git log {last_commit}..HEAD -- specs/`.
+    - **Step C**: If new spec commits exist, analyze for **Spec Drift**.
+    - **Verdict**: If Drift is detected, MUST **Auto-Activate**: `architectural-design` (Transition T1) regardless of branch name.
+    - **Update**: Write current `HEAD` to `reflection.json` after acknowledgment.
 
 2.  **Branch Detection (Fallback Strategy)**:
     - *Only execute if Step 1 (Reflection) does not trigger an override.*
@@ -46,10 +50,12 @@ description: The Central Nervous System. Manages State Machine (S0-S4) and switc
     - If `branch_name` in [`master`, `main`]:
          - **Auto-Activate**: `architectural-design` (Transition T1).
     - Else (Dev Branch):
-         - **Step A**: Read `.agent/workstreams/{branch_name}/ticket.md`.
-         - **Step B**: Parse `Global Status`.
-             - If `Reviewing`: **Auto-Activate**: `code-review` (Transition T3).
-             - If `Coding` | `Fixing` | `ticket.md` missing: **Auto-Activate**: `code-implementation` (Transition T2).
+         - **Step A**: Read `.agent/workstreams/{branch_name}/status.json`.
+         - **Step B**: **Auto-Activate** based on JSON:
+             - If `"persona": "reviewer"`: `code-review` (S3).
+             - If `"persona": "executor"`: `code-implementation` (S2).
+             - If `"persona": "detective"`: `system-diagnosis` (S4).
+             - **Fallback**: Read `ticket.md`'s `Global Status` if JSON is missing.
 
 2.  **User Acknowledge**:
     - "Branch detected: {branch_name}."
