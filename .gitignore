@@ -16,3 +16,4 @@ venv/
 .gemini/
 .agent/.agent/locks/*
 .agent/locks/
+.agent/skills

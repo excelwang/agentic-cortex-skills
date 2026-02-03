@@ -19,8 +19,8 @@ description: 负责需求分析与技术方案设计，输出标准化的技术�
 > **Rule**: Every response to the User MUST start with this banner.
 
 ```markdown
-> **Cortex Status**: S1 (Legislative)
-> **Workstream**: [Workstream Name]
+> **Cortex Status**: S1 (Designing)
+> **Workstream**: $wk-current (or [Branch Name])
 > **Persona**: 🏛️ Architect (Legislator)
 > **Ticket**: [Current Ticket ID] (if applicable)
 ```

@@ -13,7 +13,7 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 
 ```markdown
 > **Cortex Status**: S4 (Diagnosing)
-> **Workstream**: [Workstream Name]
+> **Workstream**: $wk-current (or [Branch Name])
 > **Persona**: 🕵️ Detective (Diagnostician)
 > **Ticket**: [Current Ticket ID]
 ```
