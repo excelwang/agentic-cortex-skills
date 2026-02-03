@@ -82,7 +82,7 @@ description: 负责需求分析与技术方案设计，输出标准化的技术�
 
 1.  **Contract Tests (契约测试)**:
     - **Source**: 由 `architectural-design` 定义，对应 Spec 验收标准。
-    - **Path**: `it/specs/{domain}/{ticket_id}_contract.py`
+    - **Path**: `tests/contracts/{domain}/{ticket_id}_test.py`
     - **Rule**: 开发阶段 **只允许** 填充实现逻辑，**严禁** 修改测试意图或断言标准。这是 Review 的红线。
 
 2.  **Unit Tests (单元测试)**:

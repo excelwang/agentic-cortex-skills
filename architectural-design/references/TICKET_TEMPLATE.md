@@ -18,7 +18,7 @@
 
 ## 3. Scope & Deliverables (范围与交付物)
 - [ ] Logic: `src/core/pipeline.py`
-- [ ] **Contract Test**: `it/specs/consistency/ticket_001_contract.py` (Skeleton Created)
+- [ ] **Contract Test**: `tests/contracts/{domain}/ticket_001_test.py` (Skeleton Created)
 - [ ] **Mock**: `tests/fixtures/mocks/mock_pipeline.py` (If required by others)
 - [ ] Unit Test: `tests/unit/core/test_pipeline.py` (Optional)
 
@@ -30,6 +30,6 @@
 
 ## 5. Acceptance Criteria (验收标准)
 > Review Gate Checklist
-- [ ] Feature Parity: 旧版 Pusher 逻辑是否完全覆盖？
-- [ ] Test Pass: `uv run pytest it/xxx` 全绿。
+- [ ] Feature Parity: 旧版逻辑/功能是否完全覆盖？
+- [ ] Test Pass: `[Test Command]` 全绿。
 ```

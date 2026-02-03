@@ -107,7 +107,7 @@ graph TD
      - 重点：与 Master 分支进行 Feature Parity 对比。
   3. **Mode A (Feature/Bugfix)**: 如果分支名匹配 `feature/*`, `feat/*`, `fix/*` (非 legacy)。
      - 重点：与 Spec 进行 Design Compliance 对比。
-  4. **Mode C (Test Only)**: 如果仅修改了 `tests/` 或 `it/` 目录下的文件。
+  4. **Mode C (Test Only)**: 如果仅修改了 `tests/` 目录下的文件。
 - **Action**: 主动调用 `code-review` skill，传入上述 Diff 内容。
 
 ### Step 4: Decision (判决)

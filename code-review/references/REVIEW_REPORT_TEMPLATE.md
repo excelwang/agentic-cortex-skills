@@ -10,7 +10,7 @@
 
 | Impacted Domain | Selected Test Suite | Rationale |
 | :--- | :--- | :--- |
-| [e.g. Consistency] | [e.g. it/consistency/] | [e.g. Modified sync logic] |
+| [e.g. Consistency] | [e.g. tests/integration/] | [e.g. Modified core logic] |
 
 ## Findings
 

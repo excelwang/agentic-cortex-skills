@@ -25,7 +25,7 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 
 ### Type B: Regression Testing (回归)
 - **范围**: 运行受影响模块的所有相关测试。
-- **命令**: `uv run pytest it/consistency/ tests/core/` (举例)
+- **命令**: `pytest tests/integration/ tests/unit/` (举例)
 - **目标**: 证明老功能没挂。
 
 ### Type C: Full Suite (发布前)
@@ -35,14 +35,14 @@ description: 系统稳定性专家 (SRE)。负责复杂故障诊断、根因分�
 ## 2. 核心能力与动作 (Actions)
 
 ### Action 1: 执行测试 (Execution)
-- **必须**使用 `uv run pytest`。
+- **必须**使用标准测试命令 (如 `pytest`)。
 - **必须**使用 `-v` 查看详情，或 `-s` 查看 stdout (当调试时)。
 - **智能重试**: 如果遇到 Flaky Test (如 "Timeout"), 不要立即修改代码，先带 `--count=3` 重试确认。
 
 ### Action 2: 故障分析 (Diagnosis)
 当测试失败时：
 1. **不要盲猜**。
-2. **Read Logs**: 如果是集成测试失败，查看服务端/客户端日志（例如，使用 `docker logs <container_name>` 或其他日志收集工具）。
+2. **Read Logs**: 如果是集成测试失败，查看服务端/客户端日志（务必检查所有相关容器或进程的输出）。
 3. **Keyword Search**: 搜索 `ERROR`, `EXCEPTION`, `Traceback`, `Deadlock`。
 4. **定位**: 区分是 **Code Bug** (业务逻辑错) 还是 **Test Bug** (测试写得烂/不稳)。
 
