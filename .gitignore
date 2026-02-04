@@ -17,3 +17,9 @@ venv/
 .agent/.agent/locks/*
 .agent/locks/
 .agent/skills
+.agent/workstreams/flags/
+
+# Test Data (Ephemeral)
+tests/integration/outputs/
+tests/integration/next-prompt.md
+calculator.html

@@ -1,39 +1,29 @@
-# ⚖️ FAIR TEST MANDATE: The "Pure Intent" Workflow
+# ⚖️ AUTOMATED TEST MANDATE: The "Heartbeat" Workflow
 
-**Objective**: Verify the Agentic Cortex system by building a functional Web Calculator using ONLY standardized user-level commands.
+**Objective**: Verify the Agentic Cortex system using the `workflow-controller` to autonomously manage a multi-turn software development lifecycle.
 
 ---
 
-### 🟢 TURN 1: DESIGN
-**Command**: `Hi Cortex, S1 design a web calculator`
-**Verification**: 
-- Does the Architect (S1) correctly identify Mode A (Legislation)?
-- Does it create `specs/50-CALCULATOR.md` and a ticket in `backlog/`?
-- Does it run `ready_check.py` without being told?
+### 🟢 ENTRY POINT: ACTIVATE CONTROLLER
+**Command**: `Hi Cortex, activate the workflow-controller for the web-calculator scenario`
+**Requirement**:
+1. The Agent must switch to the `workflow-controller` persona.
+2. It must execute `python3 scripts/heartbeat.py --scenario tests/integration/scenarios/web-calculator/ --watch`.
 
-### 🔵 TURN 2: IMPLEMENT
-**Command**: `Hi Cortex, S2 code the calculator`
-**Verification**:
-- Does the Executor (S2) run `ready_check.py` and `claim_ticket.py`?
-- Does it implement `calculator.html` correctly?
-- Does it run `submit_for_review.py` autonomously before finishing?
+---
 
-### 🔴 TURN 3: JUDGE
-**Command**: `Hi Cortex, S3 judge the calculator`
-**Verification**:
-- Does the Judge (S3) audit the diff and requirements?
-- Does it provide a verdict (PASS/FAIL)?
+### 🔄 THE CONTROL LOOP
+For each stage (Design -> Implement -> Review -> Release), the following must occur:
 
-### ⚪ TURN 4: RELEASE
-**Command**: `Hi Cortex, finish the task`
-**Verification**:
-- Does Cortex (S0) correctly route to S2/S3 for release?
-- Is `release_ticket.py` executed?
-- Is the environment cleaned?
+1. **Watch**: The `workflow-controller` monitors for state changes (flags).
+2. **Transition**: Upon detecting a flag (e.g., `S1_DONE`), the controller reads the next fragment from the project's `next-prompt.md`.
+3. **Execution**: The Agent switches to the appropriate Worker persona (S1, S2, S3) and fulfills the mandate described in the fragment.
+4. **Evidence**: Every Worker turn MUST end by running the protocol scripts (`claim_ticket`, `submit_for_review`, `release_ticket`) to set the next progress flag.
 
 ---
 
 ### 🕵️ AUDIT CRITERIA
-1. **No Hallucination**: The Agent must not reference internal script names unless they are actually running them.
-2. **Protocol Adherence**: The `Identity Banner` must be present and accurate in every turn.
-3. **Black-Box Success**: Artifacts must exist and be functional at the end of the chain.
+1. **Persona Integrity**: Does the Agent correctly transition between `Observer (Heartbeat)` and `Worker (S1-S4)`?
+2. **Isolation Compliance**: Is `tests/integration/outputs/calculator.html` the sole production artifact?
+3. **Zero Pollution**: Are the `skills/` remains 100% project-agnostic?
+4. **Protocol Score**: Final score must be 100% as verified by `LIFECYCLE_VERIFIER.py`.
