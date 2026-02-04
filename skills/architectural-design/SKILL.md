@@ -11,10 +11,14 @@ description: Design software architecture, clarify requirements, and write speci
 - **Goal**: Ensure project governance (Specs, Tests, Tasks) exists before designing.
 - **Action**: Run these checks immediately upon entry.
     0.  **Check Reflections**: Run `scripts/check_reflections.py`. If exit code 0 -> **ACTION**: Switch to **Mode E** to process `specs/specs-inbox.md`.
-    1.  **Check Specs**: If `specs/01-ARCHITECTURE.md` is missing -> **ACTION**: Create it immediately.
+    1.  **Check Specs**:
+        - If `specs/01-ARCHITECTURE.md` is missing -> **ACTION**: Create it immediately.
+        - If `specs/02-DESIGN_GOALS.md` is missing -> **ACTION**: Create it immediately (High Priority: Capture User Expectations).
     2.  **Check Contract Tests**: If `tests/contract/` is empty -> **ACTION**: Draft initial contract tests based on Specs.
-    3.  **Check Active Work**: If `tickets/active/` is empty -> **ACTION**: Switch to **Mode B (Gap Analysis)** to generate tickets.
-    4.  **Dispatch**: If tickets were created, **Exit** and allow Cortex to route to Executor.
+    3.  **Check Workload**:
+        - If `tickets/active/` is NOT empty -> **Dispatch**: Exit and allow Cortex to route to Executor.
+        - If `tickets/backlog/` is NOT empty -> **ACTION**: Move the highest priority ticket to `tickets/active/`, then **Dispatch**.
+        - If BOTH are empty -> **ACTION**: Switch to **Mode B (Gap Analysis)** to generate new tickets.
 
 ### 2. Operational Modes
 
@@ -23,10 +27,11 @@ description: Design software architecture, clarify requirements, and write speci
 - **Output**: Markdown files in `specs/`.
     - `00-GLOSSARY.md`: **Supreme Authority** for naming.
     - `01-ARCHITECTURE.md`: High-level diagrams/concepts.
+    - `02-DESIGN_GOALS.md`: **North Star**. User expectations, requirements, and success metrics.
     - `10-DOMAIN_XXX.md`: Specific feature specs.
 
 #### Mode B: Gap Analysis (Auditor)
-- **Trigger**: Cortex detected `specs/` exist but `active/` tickets are empty.
+- **Trigger**: `specs/` exist AND (`active/` + `backlog/`) are empty.
 - **Action**: Read ALL specs and compare with the implementation in `master`.
 - **Output**: `references/AUDIT_REPORT.md` using `references/AUDIT_TEMPLATE.md`.
 - **Follow-up**: Automatically generate **granular, parallelizable tickets** for detected gaps.
@@ -54,8 +59,9 @@ description: Design software architecture, clarify requirements, and write speci
 
 ### 3. Ticket Creation (Workload)
 - **Role**: Turn Specs or Audit findings into actionable Tasks.
-- **Output**: `tickets/active/TICKET_{ID}_{NAME}.md`.
+- **Output**: `tickets/active/TICKET_{ID}_{NAME}.md` (or `backlog/` if active is full).
 - **Template**: Use `references/TICKET_TEMPLATE.md`.
+- **Constraint**: Only create NEW tickets if the Backlog is empty.
 
 ### 4. Reflection (Post-Task)
 - **Goal**: Capture lessons, patterns, and corrections to improve future performance.

@@ -6,6 +6,7 @@ class TestGovernance(unittest.TestCase):
         """Verify that the critical specification files exist."""
         required_specs = [
             "specs/01-ARCHITECTURE.md",
+            "specs/02-DESIGN_GOALS.md",
             "specs/20-QUALITY_ASSURANCE.md"
         ]
         project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../"))
