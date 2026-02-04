@@ -6,3 +6,16 @@ This registry captures critical insights, common pitfalls, and design patterns d
 | :--- | :--- | :--- | :--- | :--- | :--- |
 | 2026-02-03 | N/A | Infra | Multi-branch workstream collision | Flat directories lead to context leakage. | Use `.agent/workstreams/{branch}/`. |
 | 2026-02-03 | N/A | Process | Spec drift on Startup | 24h window for reflection is unreliable. | Use commit-based reflection (`reflection.json`). |
+
+## ✅ Pattern: TICKET_005
+
+| Field | Value |
+|-------|-------|
+| **Date** | 2026-02-04 17:49 |
+| **Author** | Executor |
+| **Context** | TICKET_005 |
+
+**Lesson**:
+> Use file locking (fcntl) for safe concurrent appends to shared files
+
+---

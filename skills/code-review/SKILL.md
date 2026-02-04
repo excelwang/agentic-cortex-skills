@@ -63,6 +63,18 @@ Actions:
 **Cause**: Feature implemented without spec
 **Solution**: FAIL verdict; escalate to S1 to create spec first
 
+## Knowledge Persistence (Lessons Learned)
+- **Rule**: Capture actionable insights from every review.
+- **Action**: After significant findings, record lessons using:
+```bash
+python3 scripts/record_lesson.py \
+    --type "Pattern|Mistake|Anti-Pattern" \
+    --context "[TICKET_ID]" \
+    --content "[Lesson description]" \
+    --author "Judge"
+```
+
 ## References
 - **Law**: All files in `specs/`.
 - **Formats**: `references/REVIEW_REPORT_TEMPLATE.md`, `references/qa_protocol.md`
+- **Automation**: `scripts/record_lesson.py`

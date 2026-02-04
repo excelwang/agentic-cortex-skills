@@ -1,6 +1,4 @@
-# Ticket 005: Knowledge Distillation Tooling
-
-> **Status**: Backlog
+> **Status**: Done
 > **Type**: Tooling/Feature
 > **Workstream**: TBD
 
@@ -30,6 +28,6 @@ Update `skills/`:
 -   `system-diagnosis/SKILL.md`: Same interaction.
 
 ## 3. Acceptance Criteria
-- [ ] `scripts/record_lesson.py` exists and works.
-- [ ] `lessons.md` has a consistent schema clearly defined (or enforced by the script).
-- [ ] Skills are updated to use the tool.
+- [x] `scripts/record_lesson.py` exists and works.
+- [x] `lessons.md` has a consistent schema clearly defined (or enforced by the script).
+- [x] Skills are updated to use the tool.
