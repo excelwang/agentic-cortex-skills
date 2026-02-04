@@ -94,3 +94,7 @@ Please see [CONTRIBUTING.md](CONTRIBUTING.md) for guidelines on how to add or mo
 
 ## ⚖️ License
 MIT
+
+---
+VERSION: 1.0.0
+BUILD: LATEST
