@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 import os
 import time
+import sys
 from pathlib import Path
 
 # Config
@@ -15,7 +16,7 @@ STAGES = [
     {"name": "Step 4: Release", "flag": "S4_DONE", "fragment": "04_release_production.md"},
 ]
 
-def check_status():
+def check_status(quiet=False):
     FLAG_DIR.mkdir(parents=True, exist_ok=True)
     
     current_stage_idx = 0
@@ -24,15 +25,16 @@ def check_status():
             current_stage_idx = i + 1
     
     if current_stage_idx >= len(STAGES):
-        print("✅ ALL STAGES COMPLETED.")
-        return True
+        if not quiet: print("✅ ALL STAGES COMPLETED.")
+        return True, current_stage_idx
 
     next_stage = STAGES[current_stage_idx]
     fragment_path = FRAGMENTS_DIR / next_stage["fragment"]
     
-    print(f"--- 💓 Workflow Heartbeat ---")
-    print(f"Current Status: Stage {current_stage_idx} complete.")
-    print(f"Pending: {next_stage['name']}")
+    if not quiet:
+        print(f"--- 💓 Workflow Heartbeat ---")
+        print(f"Current Status: Stage {current_stage_idx} complete.")
+        print(f"Pending: {next_stage['name']}")
     
     if fragment_path.exists():
         prompt_content = fragment_path.read_text()
@@ -42,7 +44,26 @@ def check_status():
             f.write(prompt_content)
             f.write("---\n")
     
-    return False
+    return False, current_stage_idx
+
+def watch(interval=60):
+    print(f"--- 🕵️ Watching for state changes (Interval: {interval}s) ---")
+    _, initial_stage = check_status(quiet=True)
+    
+    while True:
+        done, current_stage = check_status(quiet=True)
+        if current_stage > initial_stage or done:
+            print(f"\n[!] State Change Detected: Stage {current_stage}")
+            check_status() # Final print
+            break
+        
+        # Simple progress spinner
+        sys.stdout.write(".")
+        sys.stdout.flush()
+        time.sleep(interval)
 
 if __name__ == "__main__":
-    check_status()
+    if "--watch" in sys.argv:
+        watch()
+    else:
+        check_status()

@@ -9,12 +9,19 @@ description: Automates multi-turn development cycles by monitoring progress flag
 
 ## Instructions
 
-### 1. Heartbeat Protocol (MANDATORY)
-1.  **Execute**: Run `python3 scripts/heartbeat.py`.
-2.  **Observation**: Read the output to identify the current stage and pending fragment.
-3.  **Handoff**: Read `tests/integration/next-prompt.md` and present the fragment to the user.
+### 1. Heartbeat Polling Protocol
+To fulfill the **"Monitor every minute"** requirement, use the following operational pattern:
 
-### 2. Identity Banner
+1.  **Monitor**: Execute `python3 scripts/heartbeat.py --watch`. 
+    - This command uses a 60-second polling interval.
+    - It will block and only return when a **State Change** (new flag) is detected.
+2.  **Analysis**: Once the script returns, analyze the new state.
+3.  **Handoff**: Present the content of `tests/integration/next-prompt.md` to the user as the next actionable task.
+
+### 2. Manual Pulse
+If you need an immediate status update without waiting, run `python3 scripts/heartbeat.py` (no flags).
+
+### 3. Identity Banner
 > **Rule (MANDATORY)**: EVERY response MUST start with:
 ```markdown
 > **Heartbeat Status**: Stage [X/4] | Flags [Detected]
@@ -23,5 +30,5 @@ description: Automates multi-turn development cycles by monitoring progress flag
 ```
 
 ## References
-- **Automation**: `scripts/heartbeat.py`
+- **Monitoring script**: `scripts/heartbeat.py`
 - **Fragments**: `tests/integration/fragments/`
