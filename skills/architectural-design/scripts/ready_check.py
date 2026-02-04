@@ -5,33 +5,30 @@ from pathlib import Path
 
 def ready_check():
     """
-    Checks pre-conditions for architectural-design.
-    Provides helpful guidance for next steps.
+    Evidence Provider for architectural-design.
     """
     project_root = Path(os.getcwd())
     specs_dir = project_root / "specs"
     
-    print(f"--- 🏛️ Architect Readiness Check ---")
+    # 1. Specs Check
+    has_specs_dir = specs_dir.exists()
+    has_arch = (specs_dir / "01-ARCHITECTURE.md").exists() if has_specs_dir else False
+    has_goals = (specs_dir / "02-DESIGN_GOALS.md").exists() if has_specs_dir else False
     
-    # Check specs directory
-    if not specs_dir.exists():
-        print("[i] Status: Greenfield Project detected. No specs/ directory found.")
-        print("    -> Action: I will initiate Mode D (Discovery) to gather requirements.")
-    else:
-        print("[✓] Law: specs/ directory found.")
+    print(f"REPORT: [SPECS_DIR:{has_specs_dir}] [ARCH:{has_arch}] [GOALS:{has_goals}]")
 
-    # Check for reflections (synergy with check_reflections.py)
+    # 2. Reflections Check
     script_dir = Path(__file__).parent
     check_reflections = script_dir / "check_reflections.py"
+    has_reflections = False
     if check_reflections.exists():
         import subprocess
         result = subprocess.run([sys.executable, str(check_reflections)], capture_output=True, text=True)
         if result.returncode == 0:
-            print("[!] Evolution: Pending lessons/reflections found in references/.")
-            print("    -> Action: Please process these in Mode E before starting new designs.")
-            print(result.stdout)
+            has_reflections = True
+            
+    print(f"REPORT: [REFLECTIONS:{has_reflections}]")
     
-    print("\n[✓] Legislator persona is ready to proceed.")
     sys.exit(0)
 
 if __name__ == "__main__":
