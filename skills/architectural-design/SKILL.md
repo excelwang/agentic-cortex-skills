@@ -10,6 +10,7 @@ description: Design software architecture, clarify requirements, and write speci
 ### 1. Startup Audit Protocol (Auto-Run)
 - **Goal**: Ensure project governance (Specs, Tests, Tasks) exists before designing.
 - **Action**: Run these checks immediately upon entry.
+    0.  **Check Reflections**: Run `scripts/check_reflections.py`. If exit code 0 -> **ACTION**: Switch to **Mode E** to process `specs/specs-inbox.md`.
     1.  **Check Specs**: If `specs/01-ARCHITECTURE.md` is missing -> **ACTION**: Create it immediately.
     2.  **Check Contract Tests**: If `tests/contract/` is empty -> **ACTION**: Draft initial contract tests based on Specs.
     3.  **Check Active Work**: If `tickets/active/` is empty -> **ACTION**: Switch to **Mode B (Gap Analysis)** to generate tickets.
@@ -28,7 +29,8 @@ description: Design software architecture, clarify requirements, and write speci
 - **Trigger**: Cortex detected `specs/` exist but `active/` tickets are empty.
 - **Action**: Read ALL specs and compare with the implementation in `master`.
 - **Output**: `references/AUDIT_REPORT.md` using `references/AUDIT_TEMPLATE.md`.
-- **Follow-up**: Automatically generate `tickets/` for detected gaps.
+- **Follow-up**: Automatically generate **granular, parallelizable tickets** for detected gaps.
+    - **Constraint**: Tickets MUST be atomic and independent (No dependencies).
 
 #### Mode C: Reverse Engineering
 - **Trigger**: Cortex detected code exists but NO `specs/`.
@@ -39,6 +41,16 @@ description: Design software architecture, clarify requirements, and write speci
 - **Trigger**: Cortex detected NO code and NO specs.
 - **Action**: Use `references/INTERVIEW_GUIDE.md` to gather requirements.
 - **Motto**: "Ask why, not how."
+
+#### Mode E: Reflection Integration
+- **Trigger**: `scripts/check_reflections.py` returns exit code 0.
+- **Input**: The script outputs the **Consolidated Reflections**.
+- **Action**: 
+    1. Read the provided content from the terminal output.
+    2. Review the lessons/reflections.
+    3. Discuss merging valid points into the relevant `specs/*.md` files with the user.
+    4. **Note**: The source files have already been deleted by the script. Ensure all insights are captured NOW.
+- **Output**: Updated `specs/`.
 
 ### 3. Ticket Creation (Workload)
 - **Role**: Turn Specs or Audit findings into actionable Tasks.

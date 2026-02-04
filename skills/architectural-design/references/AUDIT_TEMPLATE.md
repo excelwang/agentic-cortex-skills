@@ -18,4 +18,4 @@
 - [ ] [Action Item 2]
 
 ## 4. Proposed Tickets
-[List of TICKET IDs to be created to bridge the gaps.]
+[List of GRANULAR TICKET IDs to be created. Ensure these are parallelizable where possible.]
