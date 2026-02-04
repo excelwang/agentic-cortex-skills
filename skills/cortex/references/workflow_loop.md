@@ -24,11 +24,12 @@ On "Hi Cortex", the Agent executes a strictly linear sequence:
 
 ### Step 1: Manual Override (Intent Recognition)
 - **Constraint**: CHECK FIRST.
-- **Trigger**: Explicit keywords in user message.
-    - "Design" -> **S1**
-    - "Code" -> **S2**
-    - "Review" -> **S3**
-    - "Diagnose" -> **S4**
+- **Trigger**: Pattern `Hi Cortex, [nickname] [scope]`.
+    - **"Design/Architect"** -> **S1**
+    - **"Code/Executor"** -> **S2**
+    - **"Review/Judge"** -> **S3**
+    - **"Diagnose/Detective"** -> **S4**
+- **Action**: Load target Persona and pass `[scope]` as the initial task context.
 
 ### Step 2: Auto-Pilot (Context-Aware Routing)
 - **Constraint**: Only if NO Intent detected.
