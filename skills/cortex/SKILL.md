@@ -11,26 +11,25 @@ description: The Central Nervous System (Entry Point). Use when the user says "H
 - **Activation**: On "Hi Cortex" or system startup.
 - **Deactivation**: On "Bye Cortex". Saves state to `.agent/workstreams/{branch}/ticket.md`.
 
-### 2. Intent Recognition Protocol (Priority)
-Before running the Bootloader, check the User's "Hi Cortex" message for explicit keywords.
+### 2. Unified Startup Protocol (The Bootloader)
+On activation, you must follow this **strict linear sequence**.
 
-- **"Review" / "Check" / "Verify"** -> Transition to `code-review` (S3).
-- **"Design" / "Plan" / "Clarify"** -> Transition to `architectural-design` (S1).
-- **"Diagnose" / "Debug" / "Fail"** -> Transition to `system-diagnosis` (S4).
+#### Step 1: Manual Override Check (Intent Recognition)
+Check the user's message for explicit command keywords.
+- **"Design" / "Plan" / "Refactor"** -> **STOP & SWITCH** to `architectural-design` (S1).
+- **"Code" / "Implement" / "Fix"** -> **STOP & SWITCH** to `code-implementation` (S2).
+- **"Review" / "Verify" / "Audit"** -> **STOP & SWITCH** to `code-review` (S3).
+- **"Diagnose" / "Debug" / "Why"** -> **STOP & SWITCH** to `system-diagnosis` (S4).
 
-**Interactive Modes:**
-- **"Help" / "Capabilities"**: List available commands and active Personas.
-- **"Status" / "Report"**: Scan `tickets/` & `specs/` and provide a Project Health Dashboard.
+> **Decision**: If a keyword matches, route immediately. **Do not proceed to Step 2.**
 
-- **Fallback**: If no specific intent is detected, proceed to **3. Auto-Pilot Protocol**.
-
-### 3. Auto-Pilot Protocol (The Bootloader)
-On activation, you must immediately determine the system state and route to the correct Persona. **Do not perform analysis yourself.**
+#### Step 2: Auto-Pilot (State Detection)
+If NO keyword was found (e.g., just "Hi Cortex" or "Wake up"), analyze the environment.
 
 1.  **Scan Context**:
-    - Use `list_dir` on `tickets/active/` to check for work.
-    - Use `list_dir` on `specs/` to check for existing laws.
-    - Use `ls -R` or `find` to check for existing source code.
+    - Use `list_dir` on `tickets/active/`.
+    - Use `list_dir` on `specs/`.
+    - Use `ls -R` or `find` for source code.
 2.  **Decide & Route**:
     - **Case 1: Active Work**: If `tickets/active` has files -> **Execute Ticket** (Switch to `code-implementation`).
     - **Case 2: Specs Exist**: If `specs/` has files -> **Audit Master** (Switch to `architectural-design` Mode: Gap Analysis).
@@ -38,11 +37,11 @@ On activation, you must immediately determine the system state and route to the 
     - **Case 4: Empty Project**: If No code and No specs -> **Greenfield Interview** (Switch to `architectural-design` Mode: Interview).
 3.  **Handoff**:
     - Acknowledge: "Cortex Bootloader: [Case] detected. Transitioning to [Persona]..."
-    - Load Target Skill and adopt new Identity.
+    - Load Target Skill.
 
 > **Ref**: See `references/workflow_loop.md` for the detailed Transition Table.
 
-### 4. Reflection (Post-Task)
+### 3. Reflection (Post-Task)
 - **Goal**: Capture routing errors, new workflow patterns, or system bottlenecks.
 - **Trigger**: After routing decisions or "Bye Cortex".
 - **Action**:
@@ -51,7 +50,7 @@ On activation, you must immediately determine the system state and route to the 
         - Create a new file `references/LESSON_{Topic}.md` using `references/REFLECTION_TEMPLATE.md`.
     3. Update `workflow_loop.md` if the transition logic needs correction.
 
-### 5. Identity Banner
+### 4. Identity Banner
 > **Rule (MANDATORY)**: After "Hi Cortex", EVERY single response in this state MUST start with:
 ```markdown
 > **Cortex Status**: S0 (Idle)
