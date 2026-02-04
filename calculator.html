@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cortex Calculator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --glass-bg: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+            --accent: #6366f1;
+            --text: #ffffff;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 100%);
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text);
+            overflow: hidden;
+        }
+
+        .calculator {
+            background: var(--glass-bg);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            width: 340px;
+            animation: fadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        #display {
+            width: 100%;
+            height: 80px;
+            background: rgba(0, 0, 0, 0.2);
+            border: none;
+            border-radius: 12px;
+            margin-bottom: 24px;
+            text-align: right;
+            padding: 0 16px;
+            font-size: 32px;
+            color: #fff;
+            box-sizing: border-box;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            font-weight: 300;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+        }
+
+        button {
+            height: 64px;
+            border: none;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #fff;
+            font-size: 20px;
+            font-weight: 400;
+            cursor: pointer;
+            transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid transparent;
+        }
+
+        button:hover {
+            background: rgba(255, 255, 255, 0.15);
+            transform: scale(1.05);
+            border-color: var(--glass-border);
+        }
+
+        button:active {
+            transform: scale(0.95);
+        }
+
+        button.operator {
+            background: rgba(99, 102, 241, 0.2);
+            color: #a5b4fc;
+            font-weight: 600;
+        }
+
+        button.operator:hover {
+            background: var(--accent);
+            color: #fff;
+        }
+
+        button.equals {
+            background: var(--accent);
+            grid-column: span 2;
+            font-weight: 600;
+        }
+
+        button.clear {
+            background: rgba(239, 68, 68, 0.2);
+            color: #fca5a5;
+            grid-column: span 2;
+        }
+
+        button.clear:hover {
+            background: #ef4444;
+            color: #fff;
+        }
+
+        .brand {
+            text-align: center;
+            margin-top: 24px;
+            font-size: 12px;
+            letter-spacing: 2px;
+            opacity: 0.5;
+            text-transform: uppercase;
+        }
+    </style>
+</head>
+<body>
+    <div class="calculator">
+        <div id="display">0</div>
+        <div class="grid">
+            <button class="clear" onclick="clearDisplay()">CLEAR</button>
+            <button class="operator" onclick="append(' / ')">÷</button>
+            <button class="operator" onclick="append(' * ')">×</button>
+            
+            <button onclick="append('7')">7</button>
+            <button onclick="append('8')">8</button>
+            <button onclick="append('9')">9</button>
+            <button class="operator" onclick="append(' - ')">−</button>
+            
+            <button onclick="append('4')">4</button>
+            <button onclick="append('5')">5</button>
+            <button onclick="append('6')">6</button>
+            <button class="operator" onclick="append(' + ')">+</button>
+            
+            <button onclick="append('1')">1</button>
+            <button onclick="append('2')">2</button>
+            <button onclick="append('3')">3</button>
+            <button onclick="calculate()" class="equals">=</button>
+            
+            <button onclick="append('0')" style="grid-column: span 2;">0</button>
+            <button onclick="append('.')">.</button>
+        </div>
+        <div class="brand">Cortex Engine</div>
+    </div>
+
+    <script>
+        let currentInput = '';
+        const display = document.getElementById('display');
+
+        function append(value) {
+            if (currentInput === '0' && value !== '.') {
+                currentInput = value;
+            } else {
+                currentInput += value;
+            }
+            updateDisplay();
+        }
+
+        function clearDisplay() {
+            currentInput = '';
+            updateDisplay();
+        }
+
+        function updateDisplay() {
+            display.innerText = currentInput || '0';
+        }
+
+        function calculate() {
+            try {
+                // Use a safe evaluation or custom parser for a "real" product, 
+                // but for this smoke test, eval is used to demonstrate logic.
+                const result = eval(currentInput);
+                currentInput = String(result);
+                updateDisplay();
+            } catch (e) {
+                display.innerText = 'ERROR';
+                currentInput = '';
+            }
+        }
+    </script>
+</body>
+</html>
