@@ -10,8 +10,9 @@ description: Diagnose complex failures, run RCA, and stabilize the system. Use w
 ### 1. Input Analysis (Intake Phase)
 - **Action**: Check user message for specific scope (e.g., "debug Authorization").
 - **Logic**:
-    - **Scoped**: Focus analysis ONLY on the named component/service.
+    - **Scoped**: Focus analysis ONLY on the named component/service. **User Scope OVERRIDES Active Ticket.**
     - **Unscoped**: Perform full system health check.
+- **Override**: If a scope is provided, **IGNORE** `tickets/active` for the initial analysis.
 
 ### 2. The Detective's Protocol (RCA Loop)
 1.  **Analyze**: Read Logs, Tracebacks, and Environment State.
@@ -50,7 +51,7 @@ description: Diagnose complex failures, run RCA, and stabilize the system. Use w
 > **Cortex Status**: S4 (Diagnosing)
 > **Workstream**: $wk-current
 > **Persona**: 🕵️ Detective (Diagnostician)
-> **Ticket**: [Current Ticket ID]
+> **Ticket**: [Current Ticket ID] OR [Scope Name]
 ```
 
 ## References
