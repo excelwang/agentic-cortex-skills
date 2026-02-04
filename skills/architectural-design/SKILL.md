@@ -7,12 +7,13 @@ description: Design software architecture, clarify requirements, and write speci
 
 ## Instructions
 
-### 1. Discovery & Context (Phase 0)
-- **Goal**: Understand the existing system before prescribing changes.
-- **Action**: 
-    1. Scan `specs/` for existing laws.
-    2. Scan code structure (`ls -R`, `find`).
-    3. Generate `01-ARCHITECTURE.md` if missing.
+### 1. Startup Audit Protocol (Auto-Run)
+- **Goal**: Ensure project governance (Specs, Tests, Tasks) exists before designing.
+- **Action**: Run these checks immediately upon entry.
+    1.  **Check Specs**: If `specs/01-ARCHITECTURE.md` is missing -> **ACTION**: Create it immediately.
+    2.  **Check Contract Tests**: If `tests/contract/` is empty -> **ACTION**: Draft initial contract tests based on Specs.
+    3.  **Check Active Work**: If `tickets/active/` is empty -> **ACTION**: Switch to **Mode B (Gap Analysis)** to generate tickets.
+    4.  **Dispatch**: If tickets were created, **Exit** and allow Cortex to route to Executor.
 
 ### 2. Operational Modes
 

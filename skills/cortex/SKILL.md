@@ -17,6 +17,11 @@ Before running the Bootloader, check the User's "Hi Cortex" message for explicit
 - **"Review" / "Check" / "Verify"** -> Transition to `code-review` (S3).
 - **"Design" / "Plan" / "Clarify"** -> Transition to `architectural-design` (S1).
 - **"Diagnose" / "Debug" / "Fail"** -> Transition to `system-diagnosis` (S4).
+
+**Interactive Modes:**
+- **"Help" / "Capabilities"**: List available commands and active Personas.
+- **"Status" / "Report"**: Scan `tickets/` & `specs/` and provide a Project Health Dashboard.
+
 - **Fallback**: If no specific intent is detected, proceed to **3. Auto-Pilot Protocol**.
 
 ### 3. Auto-Pilot Protocol (The Bootloader)
