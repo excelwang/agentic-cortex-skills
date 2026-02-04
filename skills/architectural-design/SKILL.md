@@ -1,6 +1,6 @@
 ---
 name: architectural-design
-description: Design software architecture, clarify requirements, and write specifications. Accesses the Legislator Persona.
+description: Design software architecture, clarify requirements, and write specifications. Accesses the Legislator Persona. Use when user asks to "design a feature", "write specs", "create architecture docs", "plan the system", "define requirements", or "audit existing specs".
 ---
 
 # Architectural Design (The Legislator)
@@ -38,6 +38,35 @@ description: Design software architecture, clarify requirements, and write speci
 > **Persona**: 🏛️ Architect (Legislator)
 > **Protocol**: Readiness [OK/FAIL] | Mode [A-E]
 ```
+
+## Examples
+
+### Example 1: New Feature Design
+User says: "Design a user authentication system"
+
+Actions:
+1. Run `ready_check.py` to verify project state
+2. Enter Mode A: Create `specs/XX-AUTHENTICATION.md`
+3. Define contracts in `tests/contract/test_auth.py`
+4. Generate implementation tickets
+
+### Example 2: Gap Analysis
+User says: "Audit existing specs"
+
+Actions:
+1. Enter Mode B: Compare `specs/` against codebase
+2. Identify undocumented features or spec drift
+3. Generate tickets to reconcile gaps
+
+## Troubleshooting
+
+### Error: Glossary sync fails
+**Cause**: Malformed terms in `00-GLOSSARY.md`
+**Solution**: Manually verify glossary YAML structure
+
+### Error: No tickets generated
+**Cause**: Specs fully aligned with code
+**Solution**: This is a success state; proceed to S2
 
 ## References
 - **Automation**: `scripts/claim_ticket.py`, `scripts/sync_glossary.py`, `scripts/ready_check.py`

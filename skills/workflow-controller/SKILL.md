@@ -1,6 +1,6 @@
 ---
 name: workflow-controller
-description: Generic multi-turn automation engine. Monitors progress flags and serves prompt fragments from a specified scenario.
+description: Generic multi-turn automation engine. Monitors progress flags and serves prompt fragments from a specified scenario. Use when user asks to "run integration test", "automate the workflow", "start heartbeat monitoring", or "execute a scenario".
 ---
 
 # Workflow Controller (The Heartbeat)

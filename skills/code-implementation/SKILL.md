@@ -1,6 +1,6 @@
 ---
 name: code-implementation
-description: Implement code and tests based on specs and tickets. Accesses the Executor Persona.
+description: Implement code and tests based on specs and tickets. Accesses the Executor Persona. Use when user asks to "implement this ticket", "write the code", "build the feature", "fix this bug", "add unit tests", or "continue coding".
 ---
 
 # Code Implementation (The Executor)
@@ -33,6 +33,35 @@ description: Implement code and tests based on specs and tickets. Accesses the E
 > **Persona**: 👷 Executor (Workflow Manager)
 > **Evidence**: Readiness Check [OK/FAIL] | Ticket [$ID]
 ```
+
+## Examples
+
+### Example 1: Implementing a Ticket
+User says: "Implement TICKET_005"
+
+Actions:
+1. Run `ready_check.py` to verify active ticket
+2. Read ticket requirements from `tickets/active/TICKET_005_*.md`
+3. Write code + tests concurrently
+4. Run `submit_for_review.py` when complete
+
+### Example 2: Spec Ambiguity
+User says: "Build the authentication module"
+
+Actions:
+1. Check `specs/` for authentication spec
+2. If ambiguous -> STOP, escalate to S1 (Architect)
+3. Never guess implementation details
+
+## Troubleshooting
+
+### Error: No active ticket found
+**Cause**: Working without legislative mandate
+**Solution**: Return to S1 to create/claim a ticket first
+
+### Error: Tests fail after implementation
+**Cause**: Code doesn't match spec
+**Solution**: Review spec, fix code, re-run tests before submitting
 
 ## References
 - **Automation**: `scripts/submit_for_review.py`, `scripts/release_ticket.py`, `scripts/ready_check.py`

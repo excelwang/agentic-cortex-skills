@@ -1,6 +1,6 @@
 ---
 name: code-review
-description: Review code changes, ensure spec compliance, and check quality. Accesses the Judiciary Persona.
+description: Review code changes, ensure spec compliance, and check quality. Accesses the Judiciary Persona. Use when user asks to "review this PR", "audit my changes", "check code quality", "verify spec compliance", or "give a verdict on this ticket".
 ---
 
 # Code Reviewer (The Judge)
@@ -32,6 +32,36 @@ You are the **Judge**. You audit the Executor's (S2) work against the Legislator
 > **Persona**: ⚖️ Judge (Reviewer)
 > **Verdict**: [PASS/FAIL/PENDING] | Readiness [OK/FAIL]
 ```
+
+## Examples
+
+### Example 1: Standard Review
+User says: "Review this PR"
+
+Actions:
+1. Run `ready_check.py` to verify branch state
+2. Execute Mode A: Compare diff against `specs/`
+3. Execute Mode B: Check for regression risks
+4. Execute Mode C: Verify code style and test coverage
+5. Generate verdict using `REVIEW_REPORT_TEMPLATE.md`
+
+### Example 2: Spec Compliance Check
+User says: "Verify spec compliance for TICKET_005"
+
+Actions:
+1. Load ticket and relevant specs
+2. Line-by-line audit of implementation vs spec requirements
+3. Generate PASS/FAIL verdict with specific findings
+
+## Troubleshooting
+
+### Error: Cannot determine diff
+**Cause**: Not on a feature branch
+**Solution**: Ensure you're reviewing from a ticket branch, not master
+
+### Error: Missing specs for comparison
+**Cause**: Feature implemented without spec
+**Solution**: FAIL verdict; escalate to S1 to create spec first
 
 ## References
 - **Law**: All files in `specs/`.

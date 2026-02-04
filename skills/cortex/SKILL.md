@@ -1,6 +1,6 @@
 ---
 name: cortex
-description: The Central Nervous System (Entry Point). Use when the user says "Hi Cortex", "Wake up", "Context Switch", or needs to switch persona/skill. Acts as the Dispatcher.
+description: The Central Nervous System (Entry Point). Acts as the Dispatcher to route work to specialized personas. Use when user says "Hi Cortex", "Wake up", "Context Switch", "Start a new task", "Switch to design/code/review/debug mode", or needs help deciding what to do next.
 ---
 
 # Cortex (The Dispatcher)
@@ -42,6 +42,33 @@ If no intent is found, apply the **Literate Case Logic**:
 > **Persona**: 🧠 Cortex (Dispatcher)
 > **Evidence**: Doctor [PASS / FAIL] | State [Booting Step 0-2]
 ```
+
+## Examples
+
+### Example 1: Fresh Start
+User says: "Hi Cortex"
+
+Actions:
+1. Run `doctor.py` and `status.py`
+2. Detect no active tickets, specs exist
+3. Route to S1 (Mode B) for gap analysis
+
+### Example 2: Explicit Mode Request
+User says: "Hi Cortex, debug"
+
+Actions:
+1. Keyword match: "debug" -> S4
+2. Route immediately to `system-diagnosis`
+
+## Troubleshooting
+
+### Error: Scripts not found
+**Cause**: Running from wrong directory
+**Solution**: Ensure CWD is project root with `skills/cortex/scripts/`
+
+### Error: State detection stuck
+**Cause**: Ambiguous project state
+**Solution**: Use explicit keyword override (e.g., "Hi Cortex, design")
 
 ## References
 - **States**: `references/workflow_loop.md`
