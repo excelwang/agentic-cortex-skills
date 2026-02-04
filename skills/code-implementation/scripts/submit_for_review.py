@@ -24,12 +24,18 @@ def submit_for_review():
 
     # 2. Run Tests
     print("[i] Running validation tests...")
-    test_result = subprocess.run(["pytest"], capture_output=True, text=True)
+    # Check if pytest is available
+    if subprocess.run(["which", "pytest"], capture_output=True).returncode == 0:
+        test_cmd = ["pytest"]
+    else:
+        test_cmd = ["python3", "-m", "unittest", "discover", "tests"]
+        
+    test_result = subprocess.run(test_cmd, capture_output=True, text=True)
     if test_result.returncode != 0:
-        print("[✗] Error: Tests failed. Fix all issues before submitting.")
+        print(f"[✗] Error: Tests failed ({test_cmd}). Fix all issues before submitting.")
         print(test_result.stdout)
         sys.exit(1)
-    print("[✓] All tests passed.")
+    print(f"[✓] All tests passed ({test_cmd}).")
 
     # 3. Handoff Message
     print("\n" + "="*60)
