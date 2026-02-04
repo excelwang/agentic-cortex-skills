@@ -24,7 +24,7 @@ def check_env():
         except FileNotFoundError:
             print(f"[✗] {tool}: NOT FOUND.")
             passed = False
-
+            
     # Check Directory structure
     required_dirs = ["specs", "skills", "tickets"]
     for d in required_dirs:

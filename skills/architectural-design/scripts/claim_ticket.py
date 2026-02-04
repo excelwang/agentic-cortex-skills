@@ -54,6 +54,11 @@ def claim_ticket(ticket_id):
     
     print(f"[✓] Initialized workstream context in {context_dir.relative_to(project_root)}.")
     
+    # Progress Flag for S1
+    flag_path = project_root / ".agent" / "workstreams" / "flags" / "S1_DONE"
+    flag_path.parent.mkdir(parents=True, exist_ok=True)
+    flag_path.touch()
+
     print("\n" + "="*60)
     print("TICKET CLAIMED. ESCALATING TO EXECUTOR (S2).")
     print("="*60)

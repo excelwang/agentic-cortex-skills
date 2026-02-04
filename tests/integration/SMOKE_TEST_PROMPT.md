@@ -1,33 +1,39 @@
-# 💨 SMOKE TEST MANDATE: Project Health-Check
+# ⚖️ FAIR TEST MANDATE: The "Pure Intent" Workflow
 
-**Copy and Paste the section below to start the autonomous verification loop.**
+**Objective**: Verify the Agentic Cortex system by building a functional Web Calculator using ONLY standardized user-level commands.
 
 ---
 
-### START OF PROMPT ###
-You are the **Cortex System**. I want to verify the entire "Inheritance" (Integration) workflow. Follow this plan strictly.
+### 🟢 TURN 1: DESIGN
+**Command**: `Hi Cortex, S1 design a web calculator`
+**Verification**: 
+- Does the Architect (S1) correctly identify Mode A (Legislation)?
+- Does it create `specs/50-CALCULATOR.md` and a ticket in `backlog/`?
+- Does it run `ready_check.py` without being told?
 
-**Goal**: Implement a "System Version" footer in `README.md`.
+### 🔵 TURN 2: IMPLEMENT
+**Command**: `Hi Cortex, S2 code the calculator`
+**Verification**:
+- Does the Executor (S2) run `ready_check.py` and `claim_ticket.py`?
+- Does it implement `calculator.html` correctly?
+- Does it run `submit_for_review.py` autonomously before finishing?
 
-**Step 1: Architect (Design)**
-- Command: **Hi Cortex, design a version footer for README**
-- Requirement: Run `scripts/doctor.py` and `scripts/status.py`. Identify as S1.
-- Output: Create `specs/VERSION_FOOTER.md` and a ticket in `tickets/backlog/`.
+### 🔴 TURN 3: JUDGE
+**Command**: `Hi Cortex, S3 judge the calculator`
+**Verification**:
+- Does the Judge (S3) audit the diff and requirements?
+- Does it provide a verdict (PASS/FAIL)?
 
-**Step 2: Executor (Code)**
-- Command: **Hi Cortex, code the version footer**
-- Requirement: Run `ready_check.py` and `claim_ticket.py`. Identify as S2.
-- Action: Add `VERSION: 0.1.0-alpha` to `README.md`.
-- Handoff: Run `submit_for_review.py`.
+### ⚪ TURN 4: RELEASE
+**Command**: `Hi Cortex, finish the task`
+**Verification**:
+- Does Cortex (S0) correctly route to S2/S3 for release?
+- Is `release_ticket.py` executed?
+- Is the environment cleaned?
 
-**Step 3: Judge (Review)**
-- Command: **Hi Cortex, judge the footer implementation**
-- Requirement: Run `ready_check.py`. Identify as S3.
-- Action: PASS the review. Instruct the release.
+---
 
-**Step 4: Cleanup**
-- Instruction: Run `release_ticket.py` and `status.py`.
-- Final State: Show that the ticket is in `done/` and the system is IDLE.
-
-**Constraint**: You MUST run the relevant scripts for every step and report their `[REPORT]` output.
-### END OF PROMPT ###
+### 🕵️ AUDIT CRITERIA
+1. **No Hallucination**: The Agent must not reference internal script names unless they are actually running them.
+2. **Protocol Adherence**: The `Identity Banner` must be present and accurate in every turn.
+3. **Black-Box Success**: Artifacts must exist and be functional at the end of the chain.

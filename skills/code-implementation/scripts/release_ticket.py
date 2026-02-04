@@ -41,6 +41,11 @@ def release_ticket(ticket_id):
         shutil.rmtree(context_dir)
         print(f"[✓] Deleted temporary context: {context_dir.relative_to(project_root)}.")
 
+    # Progress Flag for S4 (Release Done)
+    flag_path = project_root / ".agent" / "workstreams" / "flags" / "S4_DONE"
+    flag_path.parent.mkdir(parents=True, exist_ok=True)
+    flag_path.touch()
+
     print("\n" + "="*60)
     print("TICKET RELEASED. TRANSITIONING TO IDLE (S0).")
     print("="*60)

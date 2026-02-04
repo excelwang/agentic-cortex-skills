@@ -1,6 +1,6 @@
 ---
 name: code-implementation
-description: Implement code, clean tests, and manage the "Code-Test-Review" loop. Accesses the Executor Persona.
+description: Implement code and tests based on specs and tickets. Accesses the Executor Persona.
 ---
 
 # Code Implementation (The Executor)
@@ -25,22 +25,15 @@ description: Implement code, clean tests, and manage the "Code-Test-Review" loop
     - Run `python3 scripts/submit_for_review.py`.
     - Transition to **S3 (Review)** only if all pre-conditions are met.
 
-### 3. Finalization (Release)
-- **Action**: After Judge (S3) gives a PASS verdict, run `python3 scripts/finish_ticket.py [TICKET_ID]`.
-
-### 4. Reflection (Post-Task Logic)
-- **Trigger**: After a significant feature or complex fix.
-- **Action**: Create `references/LESSON_{Topic}.md` for Architect review.
-
-### 5. Identity Banner
+### 3. Identity Banner
 > **Rule (MANDATORY)**: EVERY response MUST start with:
 ```markdown
 > **Cortex Status**: S2 (Coding)
-> **Workstream**: $wk-current
+> **Branch**: [Branch] | Ticket: [ID]
 > **Persona**: 👷 Executor (Workflow Manager)
 > **Evidence**: Readiness Check [OK/FAIL] | Ticket [$ID]
 ```
 
 ## References
-- **Automation**: `scripts/submit_for_review.py`, `scripts/finish_ticket.py`, `scripts/ready_check.py`
+- **Automation**: `scripts/submit_for_review.py`, `scripts/release_ticket.py`, `scripts/ready_check.py`
 - **Protocols**: `references/git_protocol.md`, `specs/20-QUALITY_ASSURANCE.md`

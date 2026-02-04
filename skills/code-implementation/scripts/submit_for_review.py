@@ -37,6 +37,11 @@ def submit_for_review():
         sys.exit(1)
     print(f"[✓] All tests passed ({test_cmd}).")
 
+    # Progress Flag for S2 (Implementation ready for review)
+    flag_path = Path(".agent/workstreams/flags/S2_DONE")
+    flag_path.parent.mkdir(parents=True, exist_ok=True)
+    flag_path.touch()
+
     # 3. Handoff Message
     print("\n" + "="*60)
     print("SUBMISSION SUCCESSFUL")

@@ -1,13 +1,12 @@
-# 50 - Web Calculator
+# 50 - Web Calculator (Sandbox)
 
 ## 1. Goal
-Implement a functional web calculator.
+Implement a web calculator in the isolated output directory `tests/integration/outputs/`.
 
 ## 2. Requirements
-- **Frontend**: HTML/JS.
-- **Functions**: Addition, Subtraction, Multiplication, Division.
-- **UI**: Numeric keypad and clear display.
-- **Safety**: Display "ERROR" on invalid operations (e.g., division by zero).
+- **Output Path**: `tests/integration/outputs/calculator.html`
+- **Logic**: +, -, *, /.
+- **UI**: Premium Glassmorphism.
 
 ## 3. Verification
-- `tests/contract/test_calculator.py` structural checks.
+- `test_calculator.py` must check the isolated path.

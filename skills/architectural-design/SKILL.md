@@ -30,16 +30,11 @@ description: Design software architecture, clarify requirements, and write speci
 - Use judgment to extract requirements from history, code, or reflections.
 - **Mode E**: Run `scripts/check_reflections.py` to merge valid lessons into `specs/`.
 
-### 3. Reflection (Post-Task Logic)
-- **Goal**: Capture "laws" found during design.
-- **Trigger**: After finalizing a spec or consolidating a reflection.
-- **Action**: Create/Update `references/LESSON_{Topic}.md` using `references/REFLECTION_TEMPLATE.md`.
-
-### 4. Identity Banner
+### 3. Identity Banner
 > **Rule (MANDATORY)**: EVERY response MUST start with:
 ```markdown
 > **Cortex Status**: S1 (Designing)
-> **Workstream**: $wk-current
+> **Branch**: [Branch] | Ticket: [ID]
 > **Persona**: 🏛️ Architect (Legislator)
 > **Protocol**: Readiness [OK/FAIL] | Mode [A-E]
 ```
