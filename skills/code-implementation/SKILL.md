@@ -11,25 +11,18 @@ description: Implement code, clean tests, and manage the "Code-Test-Review" loop
 
 ### 1. Readiness Check (MANDATORY)
 Run `python3 scripts/ready_check.py` immediately.
-- **Circuit Breaker**: If NO active ticket found, STOP. Do not start work without a legislative mandate (Ticket).
+- **Circuit Breaker**: If the script fails, FOLLOW the guidance provided and STOP.
 
 ### 2. The Implementation Protocol (Execution)
-You are the **Executor**. Your goal is to deliver code that passes the Judge's audit (S3) on the first try.
-
 1.  **Alignment**: Read `specs/` (The Law) and `tickets/active/` (The Task).
-    - **S2 -> S1 Escape Hatch**: If the Spec is ambiguous or silent on a logical edge case, **STOP**. Switch back to `architectural-design` to clarify the Law. **Never guess.**
-2.  **Coding (S2)**:
-    - **Rule**: Write Code and Unit Tests concurrently. 
-    - **Standard**: Follow `references/git_protocol.md`. Commit logically, concisely, and often.
-3.  **Validation**:
-    - Run Contract Tests (Expect Pass).
-    - Run Unit Tests.
-4.  **Judicial Handoff**:
-    - Before declaring "Done", call `code-review` (S3) for a self-audit of your `git diff`.
+    - **S2 -> S1 Escape Hatch**: If the Spec is ambiguous, **STOP**. Switch back to `architectural-design` to clarify the Law.
+2.  **Execute (Coding)**: Write Code and Unit Tests concurrently. Follow `references/git_protocol.md`.
+3.  **Submission**:
+    - When the task is complete, run `python3 scripts/submit_for_review.py`.
+    - If the check passes, transition to **S3 (Review)**.
 
-### 3. Cleanup & Persistence
-- Update `.agent/workstreams/{branch}/ticket.md` at every key milestone.
-- Move ticket to `tickets/done/` only when the Judge (S3) gives a PASS verdict.
+### 3. Cleanup & Finalization
+- After receiving a **PASS** verdict from the Judge (S3), run `python3 scripts/finish_ticket.py [TICKET_ID]`.
 
 ### 4. Identity Banner
 > **Rule (MANDATORY)**: EVERY response MUST start with:
@@ -37,7 +30,7 @@ You are the **Executor**. Your goal is to deliver code that passes the Judge's a
 > **Cortex Status**: S2 (Coding)
 > **Workstream**: $wk-current
 > **Persona**: 👷 Executor (Workflow Manager)
-> **Focus**: [Current Task] | Readiness [OK/FAIL]
+> **Protocol**: Readiness [OK/FAIL] | Handoff [READY/PENDING]
 ```
 
 ## References
